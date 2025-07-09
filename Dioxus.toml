@@ -3,7 +3,7 @@
 [web.app]
 
 # HTML title tag content
-title = "sentryx"
+title = "Sentryx"
 
 # include `assets` in web platform
 [web.resource]
