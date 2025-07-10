@@ -1,6 +1,7 @@
 mod backend;
 mod dashboard;
 mod login;
+mod components;
 
 use dioxus::prelude::*;
 
