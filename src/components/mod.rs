@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+pub mod sidebar;
 
 #[component]
 pub fn LineChart(

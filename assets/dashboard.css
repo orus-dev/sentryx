@@ -9,14 +9,6 @@ body {
   gap: 20px;
 }
 
-#sidebar {
-  background-color: #171b2e;
-  width: 400px;
-  height: 100%;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
 .left_container {
   display: grid;
   grid-template-rows: 200px 450px 230px;

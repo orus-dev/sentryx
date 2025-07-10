@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::{LineChart, RadialChart};
+use crate::components::{sidebar::SideBar, LineChart, RadialChart};
 
 const DASHBOARD_CSS: Asset = asset!("/assets/dashboard.css");
 
@@ -12,7 +12,7 @@ pub fn Dashboard() -> Element {
         div {
             class: "container",
 
-            div { id: "sidebar" }
+            SideBar { selected: 0 }
             div {
                 class: "left_container",
                 div { id: "top_container",
