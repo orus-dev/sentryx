@@ -1,8 +1,14 @@
 use dioxus::prelude::*;
 
+use crate::Route;
+
+const LOGIN_CSS: Asset = asset!("/assets/login.css");
+
 #[component]
 pub fn Login() -> Element {
     rsx! {
+        document::Link { rel: "stylesheet", href: LOGIN_CSS }
+
         div {
             id: "login_wrapper",
 
@@ -24,7 +30,10 @@ pub fn Login() -> Element {
                     input { class: "field" }
                 }
 
-                button { "Login" }
+                Link {
+                    to: Route::Dashboard {  },
+                    button { "Login" }
+                }
             }
         }
     }
