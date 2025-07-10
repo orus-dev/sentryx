@@ -96,3 +96,55 @@ pub fn LineChart(
         }
     }
 }
+
+const RADIUS: f64 = 50.0;
+const CIRCUMFERENCE: f64 = 2.0 * std::f64::consts::PI * RADIUS;
+
+#[component]
+pub fn RadialChart(percent: f64) -> Element {
+    let offset = CIRCUMFERENCE * (1.0 - percent.clamp(0.0, 1.0));
+
+    rsx! {
+        svg {
+            width: "140",
+            height: "140",
+            view_box: "0 0 120 120",
+            xmlns: "http://www.w3.org/2000/svg",
+
+            // Outline circle
+            circle {
+                cx: "60",
+                cy: "60",
+                r: "{RADIUS}",
+                stroke: "none",
+                stroke_width: "10.0",
+                fill: "none",
+            }
+
+            // Progress circle
+            circle {
+                cx: "60",
+                cy: "60",
+                r: "{RADIUS}",
+                stroke: "#4f46e5",
+                stroke_width: "10.5",
+                fill: "none",
+                stroke_dasharray: "{CIRCUMFERENCE}",
+                stroke_dashoffset: "{offset}",
+                transform: "rotate(-90 60 60)",
+                stroke_linecap: "round",
+            }
+
+            // Optional center text
+            text {
+                x: "60",
+                y: "65",
+                text_anchor: "middle",
+                font_size: "18",
+                fill: "#4f46e5",
+                font_family: "sans-serif",
+                "{(percent * 100.0).round()}%"
+            }
+        }
+    }
+}
