@@ -153,3 +153,22 @@ body {
   white-space: nowrap;
   font-weight: bold;
 }
+
+.server-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.server-container div {
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  height: 406;
+  padding: 30px;
+}
+.dashboard-container h3 {
+  padding: 0;
+  margin: 0;
+}

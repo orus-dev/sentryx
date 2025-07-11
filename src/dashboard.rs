@@ -71,12 +71,16 @@ pub fn Dashboard() -> Element {
                 }
 
                 div { class: "server-container",
-                    div { class: "performance-card",
-                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    div {
+                        h3 { "Web server 01" }
                     }
 
-                    div { class: "performance-card",
-                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    div {
+                        h3 { "Web server 01" }
+                    }
+
+                    div {
+                        h3 { "Web server 01" }
                     }
                 }
             }
