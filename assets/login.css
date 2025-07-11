@@ -1,73 +1,78 @@
+body {
+  color: white;
+  background-color: black;
+}
+
 #login_wrapper {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 #background_img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  user-select: none;
 }
 
 #login_container {
-    background-color: rgba(138, 138, 138, 0.143);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    padding: 38px;
-    margin: auto;
-    width: max-content;
-    height: max-content;
-    z-index: 1;
+  background-color: rgba(138, 138, 138, 0.143);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  padding: 38px;
+  margin: auto;
+  width: max-content;
+  height: max-content;
+  z-index: 1;
 }
 
 .field {
-    background-color: rgba(138, 138, 138, 0.353);
-    border: none;
-    border-radius: 10px;
-    height: 40px;
-    width: 350px;
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+  background-color: rgba(138, 138, 138, 0.353);
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  width: 350px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .field:focus {
-    border: none;
-    outline: 1px solid white;
+  border: none;
+  outline: 1px solid white;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-    width: max-content;
-    margin-left: auto;
-    margin-right: auto;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button {
-    border: none;
-    outline: none;
-    background-color: white;
-    display: block;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: max-content;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: white;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
 }

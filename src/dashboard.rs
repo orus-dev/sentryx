@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::{sidebar::SideBar, LineChart};
+use crate::components::{sidebar::SideBar, LineChart, ProgressBar};
 use lucide_dioxus;
 
 const DASHBOARD_CSS: Asset = asset!("/assets/dashboard.css");
@@ -53,8 +53,19 @@ pub fn Dashboard() -> Element {
                         LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
                     }
 
-                    div { class: "performance-card",
-                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    div { class: "overview-card",
+                        h2 {
+                            lucide_dioxus::Activity { size: 22, color: "currentColor" }
+                            "System Overview"
+                        }
+                        div { p { "Average CPU" } p { "10%" } }
+                        ProgressBar { percent: 10, id: "cpu" }
+
+                        div { p { "Average Memory" } p { "24%" } }
+                        ProgressBar { percent: 10, id: "ram" }
+
+                        div { p { "Average Storage" } p { "24%" } }
+                        ProgressBar { percent: 10, id: "issues" }
                     }
                 }
 
