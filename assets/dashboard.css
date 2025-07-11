@@ -1,95 +1,155 @@
 body {
-  background-color: #111526;
+  background-color: #f1f5f9;
+  margin: 0;
+  color: #0f172a;
+}
+
+.sidebar-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  width: 100%;
+  padding-right: 25px;
+}
+
+.summary-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  width: 100%;
+}
+
+.summary-card {
+  box-sizing: border-box;
+  height: 100px;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.summary-card h3 {
+  font-size: x-large;
   margin: 0;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 400px 2fr 1.6fr;
+.summary-card p {
+  margin: 0;
+}
+
+.summary-card svg {
+  margin-left: auto;
+}
+
+#online {
+  color: #16a34a;
+}
+
+#issues {
+  color: rgb(234, 71, 12);
+}
+
+#cpu {
+  color: rgb(37, 99, 235);
+}
+
+#ram {
+  color: rgb(147, 51, 234);
+}
+
+.summary-card p {
+  color: black;
+}
+
+.overview-container {
+  display: flex;
   gap: 20px;
 }
 
-.left_container {
-  display: grid;
-  grid-template-rows: 200px 450px 230px;
-  gap: 20px;
-  padding-top: 20px;
-}
-
-#top_container,
-#mid_container,
-#bottom_container {
+.performance-card {
+  background-color: #fff;
   box-sizing: border-box;
-  background-color: #171b2e;
-  border-radius: 20px;
+  padding: 1.5rem;
+  border-radius: 10px;
   width: 100%;
-  padding: 30px; 
 }
 
-.right_container {
-  display: grid;
-  gap: 20px;
-  padding-top: 20px;
-  padding-right: 20px;
-  max-height: calc(100vh - 40px);
-}
+@media (max-width: 1300px) {
+  .summary-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-.right_box {
-  box-sizing: border-box;
-  padding: 30px;
-  background-color: #171b2e;
-  border-radius: 20px;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-@media (max-width: 1000px) {
-  .container {
-    display: flex;
+  .overview-container {
     flex-direction: column;
-    padding-left: 20px;
-    padding-right: 20px;
   }
 
-  #sidebar {
-    display: none;
-    height: 150px;
-    border-radius: 20px;
-  }
-
-  .right_container {
-    padding-top: 10px;
-    aspect-ratio: 1 / 1;
-    width: 100%;
+  .dashboard-container {
+    padding-left: 25px;
   }
 }
 
-
-.line-chart {
+.search-container {
+  display: flex;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  border-radius: 10px;
   width: 100%;
-  height: 100%;
+  gap: 10px;
 }
 
-
-.line-chart-svg {
+.search-input input {
+  appearance: auto;
+  background-color: #fff;
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: rgb(2, 8, 23);
+  cursor: auto;
+  display: flex;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  height: 40px;
   width: 100%;
-  height: 100%;
-  display: block;
+  padding: 8px 12px 8px 40px;
+  margin: 0;
+  text-align: start;
 }
 
-.line-chart .fill {
-  background: linear-gradient(to right, red, yellow);
-  -webkit-mask: url(#svg-path);
-  mask: url(#svg-path);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-position: center;
-  mask-position: center;
+.search-input input:focus {
+  border-color: rgb(0, 0, 0);
+  border-width: 2px;
+  outline: none;
 }
 
-.line-chart .line {
-  stroke-width: 1px;
+.search-input {
+  position: relative;
+  width: 100%;
+}
+
+.search-input svg {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.search-container button {
+  background-color: transparent;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  outline: none;
+  white-space: nowrap;
+  font-weight: bold;
 }

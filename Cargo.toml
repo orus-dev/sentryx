@@ -8,6 +8,7 @@ edition = "2021"
 
 [dependencies]
 dioxus = { version = "0.6.0", features = ["router", "fullstack"] }
+lucide-dioxus = { version = "2.15.0", features = ["all-icons"] }
 
 [features]
 default = ["web"]

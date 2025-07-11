@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
-use crate::components::{sidebar::SideBar, LineChart, RadialChart};
+use crate::components::{sidebar::SideBar, LineChart};
+use lucide_dioxus;
 
 const DASHBOARD_CSS: Asset = asset!("/assets/dashboard.css");
 
@@ -9,41 +10,74 @@ pub fn Dashboard() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: DASHBOARD_CSS }
 
-        div {
-            class: "container",
-
+        div { class: "sidebar-container",
             SideBar { selected: 0 }
-            div {
-                class: "left_container",
-                div { id: "top_container",
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
+
+            div { class: "dashboard-container",
+                div { class: "summary-container",
+                    div { class: "summary-card", id: "online",
+                        div {
+                            p { "Online Servers" }
+                            h3 { "3" }
+                        }
+                        lucide_dioxus::CircleCheckBig { size: 32, color: "currentColor" }
+                    }
+
+                    div { class: "summary-card", id: "issues",
+                        div {
+                            p { "Issues" }
+                            h3 { "2" }
+                        }
+                        lucide_dioxus::TriangleAlert { size: 32, color: "currentColor" }
+                    }
+
+                    div { class: "summary-card", id: "cpu",
+                        div {
+                            p { "Avg CPU Usage" }
+                            h3 { "42%" }
+                        }
+                        lucide_dioxus::Cpu { size: 32, color: "currentColor" }
+                    }
+
+                    div { class: "summary-card", id: "ram",
+                        div {
+                            p { "Avg Memory" }
+                            h3 { "42%" }
+                        }
+                        lucide_dioxus::MemoryStick { size: 32, color: "currentColor" }
+                    }
                 }
-                div { id: "mid_container",
-                    LineChart { data: vec![90, 60, 70, 50], max: 170, start_opacity: 0.3 }
+
+                div { class: "overview-container",
+                    div { class: "performance-card",
+                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    }
+
+                    div { class: "performance-card",
+                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    }
                 }
-                div { id: "bottom_container",
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
-                    RadialChart { percent: 0.6 }
+
+                div { class: "search-container",
+                    div { class: "search-input",
+                        lucide_dioxus::Search { size: 16, color: "currentColor" }
+                        input { placeholder: "Search servers by name, location, or IP..." }
+                    }
+                    button { "All (4)" }
+                    button { id: "online", "Online (3)" }
+                    button { id: "issues", "Warning (1)" }
+                    button { id: "ram", "Offline (1)" }
+                    button { id: "cpu", "Maintenance (1)" }
                 }
-            }
-            div {
-                class: "right_container",
-                div { class: "right_box",
-                    LineChart { data: vec![90, 60, 70, 50], max: 170, start_opacity: 0.3 }
-                }
-                div { class: "right_box",
-                    LineChart { data: vec![90, 60, 70, 50], max: 170, start_opacity: 0.3 }
+
+                div { class: "server-container",
+                    div { class: "performance-card",
+                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    }
+
+                    div { class: "performance-card",
+                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                    }
                 }
             }
         }

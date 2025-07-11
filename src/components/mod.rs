@@ -98,7 +98,9 @@ pub fn LineChart(
     }
 }
 
+#[allow(unused)]
 const RADIUS: f64 = 50.0;
+#[allow(unused)]
 const CIRCUMFERENCE: f64 = 2.0 * std::f64::consts::PI * RADIUS;
 
 #[component]

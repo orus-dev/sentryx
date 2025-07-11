@@ -1,10 +1,10 @@
 #sidebar {
   box-sizing: border-box;
-  background-color: #171b2e;
-  width: 400px;
-  height: 100%;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  background-color: #fff;
+  width: 300px;
+  height: calc(100vh - 40px);
+  border-radius: 20px;
+  margin-left: 25px;
   padding: 20px;
 }
 
@@ -28,7 +28,7 @@
 
 .sidebar-item p {
   text-decoration: none;
-  color: #fff;
+  color: #0f172a;
   font: inherit; 
   font-size: larger;
   font-weight: bold;
