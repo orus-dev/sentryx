@@ -1,5 +1,6 @@
-use dioxus::prelude::*;
+pub mod server;
 pub mod sidebar;
+use dioxus::prelude::*;
 
 #[component]
 pub fn LineChart(

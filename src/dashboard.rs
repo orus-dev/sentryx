@@ -1,6 +1,10 @@
 use dioxus::prelude::*;
 
-use crate::components::{sidebar::SideBar, LineChart, ProgressBar};
+use crate::components::{
+    server::{Server, ServerComponent},
+    sidebar::SideBar,
+    LineChart, ProgressBar,
+};
 use lucide_dioxus;
 
 const DASHBOARD_CSS: Asset = asset!("/assets/dashboard.css");
@@ -85,53 +89,45 @@ pub fn Dashboard() -> Element {
                 }
 
                 div { class: "server-container",
-                    div { class: "server",
-                        div { class: "server-heading",
-                            div { class: "server-heading-inner",
-                                div { class: "server-icon",
-                                    lucide_dioxus::Server { size: 20, color: "currentColor" }
-                                }
-                                div { class: "server-heading-info",
-                                    h3 { "Web server 01" }
-                                    div {
-                                        div {
-                                            lucide_dioxus::CircleCheckBig { size: 12, color: "currentColor" }
-                                            p { "Online" }
-                                        }
-                                        p { "10.7.1.21" }
-                                    }
-                                }
-                            }
+                    ServerComponent { server: Server {
+                        name: "Main Server".to_string(),
+                        status: crate::components::server::Status::Online,
+                        ip: "10.0.0.5".to_string(),
+                        cpu: 95,
+                        memory: 60,
+                        storage: 43,
+                        network: 88,
+                    } }
 
-                            button { lucide_dioxus::EllipsisVertical { size: 16, color: "currentColor" } }
-                        }
+                    ServerComponent { server: Server {
+                        name: "Cache Node".to_string(),
+                        status: crate::components::server::Status::Warning,
+                        ip: "192.168.1.12".to_string(),
+                        cpu: 47,
+                        memory: 72,
+                        storage: 81,
+                        network: 34,
+                    } }
 
-                        div { class: "server-monitor",
-                            div { p {
-                                lucide_dioxus::Cpu { size: 16, color: "currentColor", class: "cpu" }
-                                "CPU"
-                            } p { "10%" } }
-                            ProgressBar { percent: 10, class: "low" }
+                    ServerComponent { server: Server {
+                        name: "Database".to_string(),
+                        status: crate::components::server::Status::Offline,
+                        ip: "172.16.254.3".to_string(),
+                        cpu: 12,
+                        memory: 90,
+                        storage: 22,
+                        network: 10,
+                    } }
 
-                            div { p {
-                                lucide_dioxus::MemoryStick { size: 16, color: "currentColor", class: "ram" }
-                                "Memory"
-                            } p { "34%" } }
-                            ProgressBar { percent: 60, class: "medium" }
-
-                            div { p {
-                                lucide_dioxus::HardDrive { size: 16, color: "currentColor", class: "storage" }
-                                "Storage"
-                            } p { "80%" } }
-                            ProgressBar { percent: 80, class: "high" }
-
-                            div { p {
-                                lucide_dioxus::Wifi { size: 16, color: "currentColor", class: "network" }
-                                "Network"
-                            } p { "34%" } }
-                            ProgressBar { percent: 34, class: "low" }
-                        }
-                    }
+                    ServerComponent { server: Server {
+                        name: "Backup Node".to_string(),
+                        status: crate::components::server::Status::Maintenance,
+                        ip: "192.168.100.22".to_string(),
+                        cpu: 83,
+                        memory: 41,
+                        storage: 96,
+                        network: 70,
+                    } }
                 }
             }
         }
