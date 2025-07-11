@@ -153,9 +153,14 @@ pub fn RadialChart(percent: f64) -> Element {
 }
 
 #[component]
-pub fn ProgressBar(percent: u8, id: Option<String>) -> Element {
+pub fn ProgressBar(percent: u8, class: Option<String>) -> Element {
+    let class_attr = match class {
+        Some(c) => format!("progress-bar {}", c),
+        None => "progress-bar".to_string(),
+    };
+
     rsx! {
-        span { class: "progress-bar", id: id,
+        span { class: "{class_attr}",
             span { class: "progress", style: format!("width: {}%; background-color: currentColor;", percent.clamp(0, 100)) }
         }
     }
