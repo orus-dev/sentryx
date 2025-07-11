@@ -49,6 +49,7 @@ body {
 
 .summary-card p {
   margin: 0;
+  color: black;
 }
 
 .summary-card svg {
@@ -77,10 +78,6 @@ body {
 
 .network {
   color: rgb(22 163 74);
-}
-
-.summary-card p {
-  color: black;
 }
 
 .overview-container {
@@ -199,12 +196,14 @@ body {
     flex-direction: column;
   }
 
-  .dashboard-container {
-    padding-left: 25px;
-  }
-
   .overview-card {
     width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dashboard-container {
+    padding-left: 25px;
   }
 }
 
@@ -235,4 +234,22 @@ body {
 
 .high {
   color: rgb(239, 68, 68);
+}
+
+.server-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 1300px) {
+  .server-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 750px) {
+  .server-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
