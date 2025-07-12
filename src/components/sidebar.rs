@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::Route;
 
-const SIDEBAR_CSS: Asset = asset!("/assets/sidebar.css");
+const SIDEBAR_CSS: Asset = asset!("/assets/styles/sidebar.css");
 
 pub struct SideBarItem {
     pub name: &'static str,

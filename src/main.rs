@@ -1,7 +1,7 @@
 mod backend;
+mod components;
 mod dashboard;
 mod login;
-mod components;
 
 use dioxus::prelude::*;
 
@@ -18,7 +18,8 @@ enum Route {
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
-const FONT_CSS: Asset = asset!("/assets/font.css");
+const FONT_CSS: Asset = asset!("/assets/styles/font.css");
+const LIGHT_CSS: Asset = asset!("/assets/styles/light.css");
 
 fn main() {
     dioxus::launch(App);
@@ -29,6 +30,7 @@ fn App() -> Element {
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: FONT_CSS }
-        Router::<Route> {}
+        document::Link { rel: "stylesheet", href: LIGHT_CSS }
+        Router::<Route> { }
     }
 }

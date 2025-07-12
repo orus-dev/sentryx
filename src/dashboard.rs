@@ -7,7 +7,7 @@ use crate::components::{
 };
 use lucide_dioxus;
 
-const DASHBOARD_CSS: Asset = asset!("/assets/dashboard.css");
+const DASHBOARD_CSS: Asset = asset!("/assets/styles/dashboard.css");
 
 #[component]
 pub fn Dashboard() -> Element {
@@ -81,7 +81,7 @@ pub fn Dashboard() -> Element {
                         lucide_dioxus::Search { size: 16, color: "currentColor" }
                         input { placeholder: "Search servers by name, location, or IP..." }
                     }
-                    button { "All (4)" }
+                    button { class: "fg", "All (4)" }
                     button { class: "online", "Online (3)" }
                     button { class: "issues", "Warning (1)" }
                     button { class: "ram", "Offline (1)" }

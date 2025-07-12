@@ -1,6 +1,6 @@
 .server-container .server {
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 10px;
   width: 100%;
   height: 100%;
@@ -17,7 +17,7 @@
   border-radius: 10px;
   width: 20px;
   height: 20px;
-  background-color: rgb(219 234 254);
+  background-color: var(--server-icon-bg);
   color: rgb(37 99 235);
   margin-top: auto;
   margin-bottom: auto;
@@ -114,21 +114,21 @@
 }
 
 .Online {
-  background-color: rgb(220, 252, 231);
-  color: rgb(22 101 52);
+  color: var(--online);
+  background-color: var(--online-bg);
 }
 
 .Offline {
-  background-color: rgb(254, 226, 226);
-  color: rgb(153, 27, 27);
+  color: var(--offline);
+  background-color: var(--offline-bg);
 }
 
 .Warning {
-  background-color: rgb(255, 237, 213);
-  color: rgb(154, 52, 18);
+  color: var(--warning);
+  background-color: var(--warning-bg);
 }
 
 .Maintenance {
-  background-color: rgb(219, 234, 254);
-  color: rgb(30, 64, 175);
+  color: var(--maintenance);
+  background-color: var(--maintenance-bg);
 }

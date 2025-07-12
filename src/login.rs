@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::Route;
 
-const LOGIN_CSS: Asset = asset!("/assets/login.css");
+const LOGIN_CSS: Asset = asset!("/assets/styles/login.css");
 
 #[component]
 pub fn Login() -> Element {

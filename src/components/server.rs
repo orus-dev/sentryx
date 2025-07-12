@@ -1,7 +1,7 @@
 use crate::components::ProgressBar;
 use dioxus::prelude::*;
 
-const SERVER_CSS: Asset = asset!("/assets/server.css");
+const SERVER_CSS: Asset = asset!("/assets/styles/server.css");
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Status {

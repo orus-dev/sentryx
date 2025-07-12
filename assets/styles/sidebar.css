@@ -1,6 +1,6 @@
 #sidebar {
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: var(--card-bg);
   width: 300px;
   height: calc(100vh - 40px);
   border-radius: 20px;
@@ -28,7 +28,7 @@
 
 .sidebar-item p {
   text-decoration: none;
-  color: #0f172a;
+  color: var(--fg);
   font: inherit; 
   font-size: larger;
   font-weight: bold;
@@ -36,5 +36,5 @@
 }
 
 .sidebar-item svg {
-  color: #fff;
+  color: var(--fg);
 }
