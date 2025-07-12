@@ -126,6 +126,50 @@ body {
   color: var(--network);
 }
 
+.chart-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.y-axis div {
+  height: 100%;
+  text-align: right;
+}
+
+.chart-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.performance-stack {
+  display: flex;
+  position: relative;
+  height: 300px;
+}
+
+.x-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.x-axis div {
+  width: calc(100% / 24);
+  text-align: center;
+}
+
 .overview-card {
   background-color: var(--card-bg);
   box-sizing: border-box;

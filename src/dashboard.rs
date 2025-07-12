@@ -54,11 +54,22 @@ pub fn Dashboard() -> Element {
 
                 div { class: "overview-container",
                     div { class: "performance-card",
-                        div { class: "performance-stack",
-                            LineChart { data: vec![30, 30, 30, 70, 30], max: 100, class: "lc1" }
-                            LineChart { data: vec![47, 50, 60, 30, 50], max: 100, class: "lc2" }
-                            LineChart { data: vec![23, 50, 40, 50, 52], max: 100, class: "lc3" }
+                        div { class: "chart-container",
+                            div { class: "y-axis",
+                                {(0..=100).rev().step_by(25).map(|v| rsx!(div { "{v}" }))}
+                            }
+                            div { class: "chart-area",
+                                div { class: "performance-stack",
+                                    LineChart { data: vec![30, 35, 23, 21, 32, 40, 53, 61, 47, 36, 26, 18], max: 100, class: "lc1" }
+                                    LineChart { data: vec![47, 50, 60, 30, 50], max: 100, class: "lc2" }
+                                    LineChart { data: vec![23, 50, 40, 50, 52], max: 100, class: "lc3" }
+                                }
+                                div { class: "x-axis",
+                                    {(0..24).step_by(2).map(|h| rsx!(div { "{h}h" }))}
+                                }
+                            }
                         }
+
                     }
 
                     div { class: "overview-card",
