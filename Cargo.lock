@@ -3641,7 +3641,10 @@ name = "sentryx"
 version = "0.1.0"
 dependencies = [
  "dioxus",
+ "js-sys",
  "lucide-dioxus",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]

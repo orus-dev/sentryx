@@ -1,9 +1,11 @@
 mod backend;
 mod components;
+mod cookie;
 mod dashboard;
 mod login;
 
 use dioxus::prelude::*;
+use web_sys::window;
 
 use dashboard::Dashboard;
 use login::Login;
@@ -19,7 +21,7 @@ enum Route {
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const FONT_CSS: Asset = asset!("/assets/styles/font.css");
-const LIGHT_CSS: Asset = asset!("/assets/styles/light.css");
+const THEME_CSS: Asset = asset!("/assets/styles/theme.css");
 
 fn main() {
     dioxus::launch(App);
@@ -27,10 +29,42 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    let mut theme = use_signal(|| String::from("light"));
+
+    use_effect({
+        let mut theme = theme.clone();
+        move || {
+            theme.set(cookie::get_cookie("theme").unwrap_or_default());
+        }
+    });
+
+    use_effect({
+        let theme = theme.clone();
+        move || {
+            if let Some(document) = window().and_then(|w| w.document()) {
+                if let Some(html) = document.document_element() {
+                    html.set_class_name(&*theme.read());
+                }
+            }
+        }
+    });
+
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: FONT_CSS }
-        document::Link { rel: "stylesheet", href: LIGHT_CSS }
+        document::Link { rel: "stylesheet", href: THEME_CSS }
+        button {
+            onclick: move |_| {
+                let d = match theme.read().as_str() {
+                    "dark" => String::from("black"),
+                    "black" => String::from("light"),
+                    _ => String::from("dark")
+                };
+                cookie::set_cookie("theme", &d);
+                theme.set(d);
+            },
+            "Click"
+        }
         Router::<Route> { }
     }
 }
