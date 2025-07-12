@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::{components::sidebar::SideBar, cookie};
+use crate::{components::sidebar::SideBar, utils};
 
 pub enum Property {
     Dropdown(&'static [&'static str]),
@@ -44,10 +44,10 @@ pub fn Settings() -> Element {
                                         }
                                         div {
                                             id: "{name}",
-                                            class: "dropdown",
+                                            class: "dropdown dropdown-none",
                                             for o in opts {
                                                 button { onclick: move |_| {
-                                                    cookie::set_cookie(name, &o);
+                                                    utils::set_cookie(name, &o);
                                                     if *needs_refresh {
                                                         if let Some(win) = web_sys::window() {
                                                             win.location().reload().unwrap();

@@ -1,9 +1,9 @@
 mod backend;
 mod components;
-mod cookie;
 mod dashboard;
 mod login;
 mod settings;
+mod utils;
 
 use dioxus::prelude::*;
 use web_sys::window;
@@ -38,7 +38,7 @@ fn App() -> Element {
     use_effect({
         let mut theme = theme.clone();
         move || {
-            theme.set(cookie::get_cookie("theme").unwrap_or_default());
+            theme.set(utils::get_cookie("theme").unwrap_or_default());
         }
     });
 
