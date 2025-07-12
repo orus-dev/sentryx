@@ -6,17 +6,18 @@ use dioxus::prelude::*;
 pub fn LineChart(
     data: Vec<i32>,
     max: Option<i32>,
-    start_color: Option<u32>,
     start_opacity: Option<f32>,
-    end_color: Option<u32>,
     end_opacity: Option<f32>,
+    class: Option<String>,
 ) -> Element {
     let width = 300.0;
     let height = 200.0;
-    let start_color = start_color.unwrap_or(0x4f46e5);
     let start_opacity = start_opacity.unwrap_or(0.4);
-    let end_color = end_color.unwrap_or(0x4f46e5);
     let end_opacity = end_opacity.unwrap_or(0.0);
+    let class_attr = match class {
+        Some(c) => format!("line-chart {}", c),
+        None => "line-chart".to_string(),
+    };
 
     let max_y = max
         .map(|v| v as f64)
@@ -34,24 +35,58 @@ pub fn LineChart(
 
     let path_data = {
         let mut d = format!("M {} {}", points[0].0, points[0].1);
-        for &(x, y) in &points[1..] {
-            d += &format!(" L {} {}", x, y);
+        for i in 0..points.len() - 1 {
+            let (x0, y0) = if i == 0 { points[0] } else { points[i - 1] };
+            let (x1, y1) = points[i];
+            let (x2, y2) = points[i + 1];
+            let (x3, y3) = if i + 2 < points.len() {
+                points[i + 2]
+            } else {
+                points[i + 1]
+            };
+
+            let cp1x = x1 + (x2 - x0) / 6.0;
+            let cp1y = y1 + (y2 - y0) / 6.0;
+            let cp2x = x2 - (x3 - x1) / 6.0;
+            let cp2y = y2 - (y3 - y1) / 6.0;
+
+            d += &format!(" C {} {}, {} {}, {} {}", cp1x, cp1y, cp2x, cp2y, x2, y2);
         }
         d
     };
 
     let fill_path_data = {
         let mut d = format!("M {} {}", points[0].0, height);
-        for &(x, y) in &points {
-            d += &format!(" L {} {}", x, y);
+
+        for i in 0..points.len() - 1 {
+            let (x0, y0) = if i == 0 { points[0] } else { points[i - 1] };
+            let (x1, y1) = points[i];
+            let (x2, y2) = points[i + 1];
+            let (x3, y3) = if i + 2 < points.len() {
+                points[i + 2]
+            } else {
+                points[i + 1]
+            };
+
+            let cp1x = x1 + (x2 - x0) / 6.0;
+            let cp1y = y1 + (y2 - y0) / 6.0;
+            let cp2x = x2 - (x3 - x1) / 6.0;
+            let cp2y = y2 - (y3 - y1) / 6.0;
+
+            if i == 0 {
+                d += &format!(" L {} {}", points[0].0, points[0].1);
+            }
+
+            d += &format!(" C {} {}, {} {}, {} {}", cp1x, cp1y, cp2x, cp2y, x2, y2);
         }
+
         d += &format!(" L {} {}", points.last().unwrap().0, height);
         d + " Z"
     };
 
     rsx! {
         div {
-            class: "line-chart",
+            class: "{class_attr}",
             svg {
                 preserve_aspect_ratio: "none",
                 class: "line-chart-svg",
@@ -70,12 +105,12 @@ pub fn LineChart(
 
                         stop {
                             offset: "0%",
-                            stop_color: "#{start_color:06X}",
+                            stop_color: "currentColor",
                             stop_opacity: "{start_opacity}",
                         }
                         stop {
                             offset: "100%",
-                            stop_color: "#{end_color:06X}",
+                            stop_color: "#currentColor",
                             stop_opacity: "{end_opacity}",
                         }
                     }
@@ -91,7 +126,7 @@ pub fn LineChart(
                     class: "line",
                     d: "{path_data}",
                     fill: "none",
-                    stroke: "#4f46e5",
+                    stroke: "currentColor",
                     stroke_width: "2"
                 }
             }

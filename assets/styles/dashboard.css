@@ -96,6 +96,35 @@ body {
   border-radius: 10px;
   width: 100%;
 }
+.performance-stack {
+  display: flex;
+  position: relative;
+}
+
+.lc1,
+.lc2,
+.lc3 {
+  flex: 1;
+  position: relative;
+}
+
+.lc2,
+.lc3 {
+  margin-left: -100%;
+  z-index: 1;
+}
+
+.lc1 {
+  color: var(--cpu);
+}
+
+.lc2 {
+  color: var(--memory);
+}
+
+.lc3 {
+  color: var(--network);
+}
 
 .overview-card {
   background-color: var(--card-bg);

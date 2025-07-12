@@ -54,7 +54,11 @@ pub fn Dashboard() -> Element {
 
                 div { class: "overview-container",
                     div { class: "performance-card",
-                        LineChart { data: vec![90, 20, 40, 90, 60], max: 100 }
+                        div { class: "performance-stack",
+                            LineChart { data: vec![30, 30, 30, 70, 30], max: 100, class: "lc1" }
+                            LineChart { data: vec![47, 50, 60, 30, 50], max: 100, class: "lc2" }
+                            LineChart { data: vec![23, 50, 40, 50, 52], max: 100, class: "lc3" }
+                        }
                     }
 
                     div { class: "overview-card",
