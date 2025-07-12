@@ -25,11 +25,13 @@
   --high: rgb(239, 68, 68);
 
   /* Misc */
-  --bg: #f1f5f9;
   --fg: #0f172a;
+  --bg: #f1f5f9;
   --card-bg: #fff;
   --progress-bg: rgb(226, 232, 240);
   --server-icon-bg: rgb(219 234 254);
+  --fg-selected: #3f475a;
+  --bg-selected: #f1f5f9;
 }
 
 .dark {
@@ -64,6 +66,8 @@
   --card-bg: #141e2f; /* dark card background 141e2f */
   --progress-bg: #27364d;
   --server-icon-bg: #243756;
+  --fg-selected: #f8fafc;
+  --bg-selected: #0f172a;
 }
 
 .black {

@@ -18,23 +18,29 @@
 
 .sidebar-item {
   text-decoration: none;
-  color: inherit;
-  font: inherit; 
+  color: var(--fg);
+  font: inherit;
   display: flex;
   gap: 20px;
   align-items: center;
   padding-left: 20px;
+  border-radius: 20px;
 }
 
 .sidebar-item p {
   text-decoration: none;
-  color: var(--fg);
-  font: inherit; 
+  color: currentColor;
+  font: inherit;
   font-size: larger;
   font-weight: bold;
   height: max-content;
 }
 
 .sidebar-item svg {
-  color: var(--fg);
+  color: currentColor;
+}
+
+.sidebar-selected {
+  color: var(--fg-selected);
+  background-color: var(--bg-selected);
 }
