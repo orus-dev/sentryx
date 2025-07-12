@@ -3,12 +3,14 @@ mod components;
 mod cookie;
 mod dashboard;
 mod login;
+mod settings;
 
 use dioxus::prelude::*;
 use web_sys::window;
 
 use dashboard::Dashboard;
 use login::Login;
+use settings::Settings;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 #[rustfmt::skip]
@@ -17,6 +19,8 @@ enum Route {
     Login {},
     #[route("/dashboard")]
     Dashboard {},
+    #[route("/settings")]
+    Settings {},
 }
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
@@ -29,7 +33,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    let mut theme = use_signal(|| String::from("light"));
+    let theme = use_signal(|| String::from("light"));
 
     use_effect({
         let mut theme = theme.clone();
@@ -53,18 +57,6 @@ fn App() -> Element {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: FONT_CSS }
         document::Link { rel: "stylesheet", href: THEME_CSS }
-        button {
-            onclick: move |_| {
-                let d = match theme.read().as_str() {
-                    "dark" => String::from("black"),
-                    "black" => String::from("light"),
-                    _ => String::from("dark")
-                };
-                cookie::set_cookie("theme", &d);
-                theme.set(d);
-            },
-            "Click"
-        }
         Router::<Route> { }
     }
 }

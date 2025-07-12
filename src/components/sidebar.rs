@@ -19,7 +19,7 @@ const SIDEBAR_ITEMS: &[SideBarItem] = &[
     SideBarItem {
         name: "Settings",
         icon: || rsx!(lucide_dioxus::Settings { size: 35 }),
-        route: Route::Dashboard {},
+        route: Route::Settings {},
     },
 ];
 
