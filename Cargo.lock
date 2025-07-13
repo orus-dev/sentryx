@@ -3643,6 +3643,7 @@ dependencies = [
  "dioxus",
  "js-sys",
  "lucide-dioxus",
+ "serde",
  "wasm-bindgen",
  "web-sys",
 ]

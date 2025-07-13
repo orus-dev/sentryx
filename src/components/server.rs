@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 
 const SERVER_CSS: Asset = asset!("/assets/styles/server.css");
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum Status {
     Online,
     Offline,
@@ -11,7 +11,7 @@ pub enum Status {
     Maintenance,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Server {
     pub name: String,
     pub status: Status,

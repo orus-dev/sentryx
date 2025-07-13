@@ -12,6 +12,7 @@ js-sys = "0.3.77"
 lucide-dioxus = { version = "2.15.0", features = ["all-icons"] }
 wasm-bindgen = "0.2.100"
 web-sys = "0.3.77"
+serde = { version = "1.0.61", features = ["derive"]}
 
 [features]
 default = ["web"]
