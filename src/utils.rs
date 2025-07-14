@@ -1,4 +1,3 @@
-use dioxus::prelude::use_navigator;
 use wasm_bindgen::JsCast;
 use web_sys::{window, HtmlDocument};
 
@@ -38,5 +37,5 @@ pub fn get_cookie(name: &str) -> Option<String> {
 }
 
 pub fn redirect(target: &str) {
-    use_navigator().push(target);
+    web_sys::window().unwrap().location().set_href(target).unwrap();
 }

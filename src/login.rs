@@ -8,6 +8,7 @@ const LOGIN_CSS: Asset = asset!("/assets/styles/login.css");
 pub fn Login() -> Element {
     let username = use_signal(|| String::new());
     let password = use_signal(|| String::new());
+    let error: Signal<Option<String>> = use_signal(|| None);
 
     let is_disabled = {
         let username = username.clone();
@@ -18,16 +19,20 @@ pub fn Login() -> Element {
     let log_in = {
         let username = username.clone();
         let password = password.clone();
+        let mut error = error.clone();
         move || async move {
             if username().is_empty() || password().is_empty() {
                 return;
             }
-            match backend::log_in(username.read().clone(), password.read().clone()).await {
+            error.set(None);
+            match backend::auth::login(username.read().clone(), password.read().clone()).await {
                 Ok(id) => {
                     utils::set_cookie("session_id", &id);
                     utils::redirect("/dashboard");
                 }
-                Err(_) => {}
+                Err(e) => error.set(Some(
+                    e.to_string().replace("error running server function: ", ""),
+                )),
             }
         }
     };
@@ -66,6 +71,10 @@ pub fn Login() -> Element {
                             move |e: Event<FormData>| {password.set(e.value())}
                         },
                     }
+                }
+
+                if let Some(e) = &*error.read() {
+                    p { class: "error", "{e}" }
                 }
 
                 button {

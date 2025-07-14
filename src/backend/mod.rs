@@ -1,3 +1,5 @@
+pub mod auth;
+
 use crate::components::server::Server;
 use dioxus::prelude::*;
 
@@ -43,11 +45,6 @@ fn build_or_filter(input: &str, fields: &[&str]) -> mongodb::bson::Document {
     }
 
     mongodb::bson::doc! { "$or": or_clauses }
-}
-
-#[server]
-pub async fn log_in(username: String, password: String) -> Result<String, ServerFnError> {
-    Ok(format!("{username}@{password}"))
 }
 
 #[server]
