@@ -82,10 +82,11 @@
   border-radius: 7px;
   margin-top: auto;
   margin-bottom: auto;
+  color: var(--fg);
 }
 
 .server-heading button:hover {
-  background-color: #f1f5f9;
+  background-color: var(--bg);
 }
 
 .server-monitor h2 {

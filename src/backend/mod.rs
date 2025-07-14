@@ -1,6 +1,49 @@
+use crate::components::server::Server;
 use dioxus::prelude::*;
 
-use crate::components::server::Server;
+#[cfg(feature = "server")]
+use futures_util::stream::TryStreamExt;
+
+#[cfg(feature = "server")]
+const DB_URL: &'static str = "mongodb://admin:admin@localhost/";
+
+#[cfg(feature = "server")]
+pub async fn get_mongo<T: Send + Sync>(
+    collection: &str,
+) -> Result<mongodb::Collection<T>, mongodb::error::Error> {
+    let client = mongodb::Client::with_uri_str(DB_URL).await?;
+
+    Ok(client.database("sentryx").collection(collection))
+}
+
+#[cfg(feature = "server")]
+fn parse_search_query(input: &str) -> Vec<String> {
+    let re = regex::Regex::new(r#""([^"]+)"|(\S+)"#).unwrap();
+
+    re.captures_iter(input)
+        .filter_map(|cap| cap.get(1).or_else(|| cap.get(2)))
+        .map(|m| m.as_str().to_string())
+        .collect()
+}
+
+#[cfg(feature = "server")]
+fn build_or_filter(input: &str, fields: &[&str]) -> mongodb::bson::Document {
+    let phrases = parse_search_query(input);
+    let mut or_clauses = Vec::new();
+
+    for phrase in phrases {
+        for &field in fields {
+            or_clauses.push(mongodb::bson::doc! {
+                field: mongodb::bson::Regex {
+                    pattern: phrase.clone(),
+                    options: "i".into(), // case-insensitive
+                }
+            });
+        }
+    }
+
+    mongodb::bson::doc! { "$or": or_clauses }
+}
 
 #[server]
 pub async fn log_in(username: String, password: String) -> Result<String, ServerFnError> {
@@ -8,43 +51,23 @@ pub async fn log_in(username: String, password: String) -> Result<String, Server
 }
 
 #[server]
-pub async fn get_servers() -> Result<Vec<Server>, ServerFnError> {
-    Ok(vec![
-        Server {
-            name: "Main Server".to_string(),
-            status: crate::components::server::Status::Online,
-            ip: "10.0.0.5".to_string(),
-            cpu: 95,
-            memory: 60,
-            storage: 43,
-            network: 88,
-        },
-        Server {
-            name: "Cache Node".to_string(),
-            status: crate::components::server::Status::Warning,
-            ip: "192.168.1.12".to_string(),
-            cpu: 47,
-            memory: 72,
-            storage: 81,
-            network: 34,
-        },
-        Server {
-            name: "Database".to_string(),
-            status: crate::components::server::Status::Offline,
-            ip: "172.16.254.3".to_string(),
-            cpu: 12,
-            memory: 90,
-            storage: 22,
-            network: 10,
-        },
-        Server {
-            name: "Backup Node".to_string(),
-            status: crate::components::server::Status::Maintenance,
-            ip: "192.168.100.22".to_string(),
-            cpu: 83,
-            memory: 41,
-            storage: 96,
-            network: 70,
-        },
-    ])
+pub async fn get_servers(search: String) -> Result<Vec<Server>, ServerFnError> {
+    let servers = get_mongo::<Server>("servers").await?;
+
+    let filter = if search.trim().is_empty() {
+        mongodb::bson::doc! {}
+    } else {
+        build_or_filter(&search, &["name", "ip"])
+    };
+
+
+    let mut cursor = servers.find(filter).await?;
+
+    let mut svo = Vec::new();
+
+    while let Some(doc) = cursor.try_next().await? {
+        svo.push(doc);
+    }
+
+    Ok(svo)
 }

@@ -10,12 +10,15 @@ const DASHBOARD_CSS: Asset = asset!("/assets/styles/dashboard.css");
 
 #[component]
 pub fn Dashboard() -> Element {
-    let servers = use_resource(move || async move {
-        if let Ok(v) = backend::get_servers().await {
-            v
-        } else {
-            Vec::new()
-        }
+    let mut servers = use_signal(|| Vec::new());
+    let server_search = use_signal(|| String::new());
+
+    use_effect(move || {
+        spawn(async move {
+            if let Ok(v) = backend::get_servers(String::new()).await {
+                servers.set(v);
+            }
+        });
     });
 
     rsx! {
@@ -101,7 +104,24 @@ pub fn Dashboard() -> Element {
                 div { class: "search-container",
                     div { class: "search-input",
                         lucide_dioxus::Search { size: 16, color: "currentColor" }
-                        input { placeholder: "Search servers by name, location, or IP..." }
+                        input {
+                            onchange: {let mut server_search = server_search.clone(); move |e: Event<FormData>| {server_search.set(e.value())}},
+                            onkeypress: {
+                                let server_search = server_search.clone();
+                                let mut servers = servers.clone();
+                                move |e: Event<KeyboardData>| {
+                                    let query = (*server_search.read()).clone();
+                                    async move {
+                                        if e.key() == Key::Enter {
+                                            if let Ok(v) = backend::get_servers(query).await {
+                                                servers.set(v);
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+
+                            placeholder: "Search servers by name, location, or IP..." }
                     }
                     button { class: "fg", "All (4)" }
                     button { class: "online", "Online (3)" }
@@ -111,10 +131,8 @@ pub fn Dashboard() -> Element {
                 }
 
                 div { class: "server-container",
-                    if let Some(ss) = servers.read().clone() {
-                        for s in ss {
-                            ServerComponent { server: s }
-                        }
+                    for s in (*servers.read()).clone() {
+                        ServerComponent { server: s }
                     }
                 }
             }

@@ -91,7 +91,7 @@ pub fn ServerComponent(server: Server) -> Element {
 fn get_level(i: u8) -> String {
     if i > 80 {
         String::from("high")
-    } else if i > 30 {
+    } else if i > 50 {
         String::from("medium")
     } else {
         String::from("low")
