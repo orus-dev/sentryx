@@ -12,6 +12,7 @@ const DASHBOARD_CSS: Asset = asset!("/assets/styles/dashboard.css");
 pub fn Dashboard() -> Element {
     let mut servers = use_signal(|| Vec::new());
     let server_search = use_signal(|| String::new());
+    let session_id = crate::utils::use_cookie::<String>("session_id", || "Guest".to_string());
 
     use_effect(move || {
         spawn(async move {

@@ -60,13 +60,19 @@ pub fn Login() -> Element {
 
                 div {
                     p { "Username" }
-                    input { onchange: {let mut username = username.clone(); move |e: Event<FormData>| {username.set(e.value())}}, class: "field" }
+                    input {
+                        class: "field",
+                        oninput: {
+                            let mut username = username.clone();
+                            move |e: Event<FormData>| {username.set(e.value())}
+                        },
+                    }
                 }
                 div{
                     p { "Password" }
                     input {
                         class: "field",
-                        onchange: {
+                        oninput: {
                             let mut password = password.clone();
                             move |e: Event<FormData>| {password.set(e.value())}
                         },
