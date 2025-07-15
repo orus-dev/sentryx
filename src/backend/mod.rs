@@ -48,7 +48,11 @@ fn build_or_filter(input: &str, fields: &[&str]) -> mongodb::bson::Document {
 }
 
 #[server]
-pub async fn get_servers(search: String) -> Result<Vec<Server>, ServerFnError> {
+pub async fn get_servers(session: String, search: String) -> Result<Vec<Server>, ServerFnError> {
+    if !auth::validate_session(session).await {
+        return Err(ServerFnError::new(format!("Invalid session")));
+    }
+
     let servers = get_mongo::<Server>("servers").await?;
 
     let filter = if search.trim().is_empty() {
@@ -56,7 +60,6 @@ pub async fn get_servers(search: String) -> Result<Vec<Server>, ServerFnError> {
     } else {
         build_or_filter(&search, &["name", "ip"])
     };
-
 
     let mut cursor = servers.find(filter).await?;
 

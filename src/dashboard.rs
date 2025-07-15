@@ -1,26 +1,14 @@
 use dioxus::prelude::*;
 
-use crate::{
-    backend,
-    components::{server::ServerComponent, sidebar::SideBar, LineChart, ProgressBar},
-};
+use crate::components::{server::ServerComponent, sidebar::SideBar, LineChart, ProgressBar};
 use lucide_dioxus;
 
 const DASHBOARD_CSS: Asset = asset!("/assets/styles/dashboard.css");
 
 #[component]
 pub fn Dashboard() -> Element {
-    let mut servers = use_signal(|| Vec::new());
-    let server_search = use_signal(|| String::new());
-    let session_id = crate::utils::use_cookie::<String>("session_id", || "Guest".to_string());
-
-    use_effect(move || {
-        spawn(async move {
-            if let Ok(v) = backend::get_servers(String::new()).await {
-                servers.set(v);
-            }
-        });
-    });
+    let session = crate::utils::use_session();
+    let (servers, server_query) = session.use_servers();
 
     rsx! {
         document::Link { rel: "stylesheet", href: DASHBOARD_CSS }
@@ -106,21 +94,7 @@ pub fn Dashboard() -> Element {
                     div { class: "search-input",
                         lucide_dioxus::Search { size: 16, color: "currentColor" }
                         input {
-                            onchange: {let mut server_search = server_search.clone(); move |e: Event<FormData>| {server_search.set(e.value())}},
-                            onkeypress: {
-                                let server_search = server_search.clone();
-                                let mut servers = servers.clone();
-                                move |e: Event<KeyboardData>| {
-                                    let query = (*server_search.read()).clone();
-                                    async move {
-                                        if e.key() == Key::Enter {
-                                            if let Ok(v) = backend::get_servers(query).await {
-                                                servers.set(v);
-                                            }
-                                        }
-                                    }
-                                }
-                            },
+                            onchange: {let mut server_query = server_query.clone(); move |e: Event<FormData>| {server_query.set(e.value())}},
 
                             placeholder: "Search servers by name, location, or IP..." }
                     }
