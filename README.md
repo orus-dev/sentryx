@@ -38,7 +38,6 @@
 
 </div>
 
-
 ## 📚 Table of Contents
 
 - [About The Project](#about-the-project)
@@ -47,6 +46,7 @@
 ---
 
 ## About The Project
+
 **Sentryx** is a secure control panel for managing multiple servers. Designed with modern technologies like Next.js and React, it aims to provide a fast, clean, and scalable user interface for server operators and sysadmins.
 
 ### Built With
@@ -60,7 +60,6 @@
 ## Getting Started
 
 Not yet :/
-
 
 [contributors-shield]: https://img.shields.io/github/contributors/orus-dev/sentryx.svg?style=flat-square&color=blue&label=contributors
 [contributors-url]: https://github.com/orus-dev/sentryx/graphs/contributors
