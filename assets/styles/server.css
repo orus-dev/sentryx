@@ -114,6 +114,11 @@
   gap: 6px;
 }
 
+.All {
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
 .Online {
   color: var(--online);
   background-color: var(--online-bg);

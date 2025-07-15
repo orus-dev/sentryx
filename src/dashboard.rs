@@ -98,11 +98,11 @@ pub fn Dashboard() -> Element {
 
                             placeholder: "Search servers by name, location, or IP..." }
                     }
-                    button { class: "fg", "All (4)" }
-                    button { class: "online", "Online (3)" }
-                    button { class: "issues", "Warning (1)" }
-                    button { class: "ram", "Offline (1)" }
-                    button { class: "cpu", "Maintenance (1)" }
+                    button { class: "All", "All (4)" }
+                    button { class: "Online", "Online (3)" }
+                    button { class: "Warning", "Warning (1)" }
+                    button { class: "Offline", "Offline (1)" }
+                    button { class: "Maintenance", "Maintenance (1)" }
                 }
 
                 div { class: "server-container",

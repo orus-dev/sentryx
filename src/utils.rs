@@ -66,6 +66,7 @@ pub fn redirect(target: &str) {
         .unwrap();
 }
 
+#[derive(Clone)]
 pub struct Session(Signal<String>);
 
 pub fn use_session() -> Session {
@@ -73,6 +74,10 @@ pub fn use_session() -> Session {
 }
 
 impl Session {
+    pub fn get_id(&self) -> String {
+        self.0.read().clone()
+    }
+
     pub fn use_servers(&self) -> (Signal<Vec<Server>>, Signal<String>) {
         let query = use_signal(|| String::new());
         let servers = use_signal(|| Vec::new());
@@ -83,12 +88,29 @@ impl Session {
             let mut servers = servers.clone();
 
             spawn(async move {
-                if let Ok(v) = backend::get_servers(id.read().clone(), query_value).await {
+                if let Ok(v) = request(backend::get_servers(id.read().clone(), query_value).await) {
                     servers.set(v);
                 }
             });
         });
 
         (servers, query)
+    }
+}
+
+pub fn request<T>(o: Result<T, ServerFnError>) -> Result<T, ServerFnError> {
+    match o {
+        Err(e) => match e {
+            ServerFnError::ServerError(e) => {
+                if e == "Invalid session" {
+                    redirect("/");
+                    Err(ServerFnError::ServerError(e))
+                } else {
+                    Err(ServerFnError::ServerError(e))
+                }
+            }
+            _ => Err(e),
+        },
+        _ => o,
     }
 }

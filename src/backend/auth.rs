@@ -62,3 +62,8 @@ pub async fn validate_session(id: String) -> bool {
         false
     }
 }
+
+#[server]
+pub async fn check_validate_session(id: String) -> Result<bool, ServerFnError> {
+    Ok(validate_session(id).await)
+}

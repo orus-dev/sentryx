@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::{backend, utils};
+use crate::{
+    backend::{self},
+    utils::{self},
+};
 
 const LOGIN_CSS: Asset = asset!("/assets/styles/login.css");
 
@@ -9,6 +12,24 @@ pub fn Login() -> Element {
     let username = use_signal(|| String::new());
     let password = use_signal(|| String::new());
     let error: Signal<Option<String>> = use_signal(|| None);
+    let session = utils::use_session();
+
+    // Check for existing session on mount
+    use_effect({
+        let session = session.clone();
+        move || {
+            let session = session.clone();
+            spawn(async move {
+                // Optional: verify with the server if session is actually valid
+                if backend::auth::check_validate_session(session.get_id())
+                    .await
+                    .unwrap_or(false)
+                {
+                    utils::redirect("/dashboard");
+                }
+            });
+        }
+    });
 
     let is_disabled = {
         let username = username.clone();

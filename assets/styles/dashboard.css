@@ -251,8 +251,7 @@ body {
 }
 
 .search-container button {
-  background-color: transparent;
-  border: 1px solid currentColor;
+  border: 0;
   border-radius: 6px;
   outline: none;
   white-space: nowrap;
