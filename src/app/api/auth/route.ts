@@ -1,0 +1,45 @@
+import axios, { HttpStatusCode } from "axios";
+import { NextResponse } from "next/server";
+import { findKey, sessions, users } from "../data";
+
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  if (!body.username || !body.password)
+    return NextResponse.json(
+      { message: "Credentials are empty" },
+      { status: HttpStatusCode.BadRequest }
+    );
+
+  const uuid = findKey(
+    users,
+    (u) => u.username == body.username && u.password == body.password
+  );
+
+  if (!uuid) {
+    return NextResponse.json(
+      { message: "Invalid username or password" },
+      { status: HttpStatusCode.BadRequest }
+    );
+  }
+
+  const sessionId = "SESH-" + crypto.randomUUID();
+
+  sessions[sessionId] = uuid;
+
+  return NextResponse.json({ message: "ok", sessionId });
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+
+  const id = searchParams.get("id") || "";
+
+  if (!sessions[id])
+    return NextResponse.json(
+      { message: "Invalid session" },
+      { status: HttpStatusCode.Unauthorized }
+    );
+
+  return NextResponse.json({ message: "ok" });
+}
