@@ -1,10 +1,15 @@
 import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import Data, { findKey, sessions } from "../data";
+import Data, { findKey } from "../data";
 
 const users = new Data<{
   [key: string]: { username: string; password: string };
-}>("sentryx/users.json");
+}>("sentryx/users.json", "object");
+
+const sessions = new Data<{ [key: string]: string }>(
+  "sentryx/sessions.json",
+  "object"
+);
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -29,7 +34,9 @@ export async function POST(request: Request) {
 
   const sessionId = "SESH-" + crypto.randomUUID();
 
-  sessions[sessionId] = String(uuid);
+  sessions.data[sessionId] = String(uuid);
+
+  sessions.write();
 
   return NextResponse.json({ message: "ok", sessionId });
 }
@@ -39,7 +46,7 @@ export async function GET(request: Request) {
 
   const id = searchParams.get("id") || "";
 
-  if (!sessions[id])
+  if (!sessions.data[id])
     return NextResponse.json(
       { message: "Invalid session" },
       { status: HttpStatusCode.Unauthorized }

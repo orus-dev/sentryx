@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 
 export function findKey<T extends object>(
   obj: T,
@@ -12,14 +12,26 @@ export function findKey<T extends object>(
 export default class Data<T> {
   data: T;
   file_path: string;
-  constructor(file_path: string) {
+  constructor(file_path: string, type: "object" | "array") {
     this.file_path = file_path;
-    this.data = JSON.parse(readFileSync(this.file_path).toString());
+    if (existsSync(file_path)) {
+      try {
+        this.data = JSON.parse(readFileSync(file_path, "utf-8"));
+      } catch {
+        this.data = (type == "object" ? {} : []) as T;
+        this.write();
+      }
+    } else {
+      this.data = (type == "object" ? {} : []) as T;
+      this.write();
+    }
   }
 
   public read() {
     this.data = JSON.parse(readFileSync(this.file_path).toString());
   }
-}
 
-export const sessions: { [key: string]: string } = {};
+  public write() {
+    writeFileSync(this.file_path, JSON.stringify(this.data));
+  }
+}
