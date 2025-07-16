@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -10,8 +12,8 @@ export function generateHourlyData() {
   for (let hour = 24; hour >= 0; hour--) {
     result.push({
       hour: hour,
-      cpu: Math.floor(Math.random() * 100), // random CPU usage between 0-99
-      ram: Math.floor(Math.random() * 100), // random RAM usage between 0-99
+      cpu: Math.floor(Math.random() * 20 + 30), // random CPU usage between 0-99
+      ram: Math.floor(Math.random() * 40 + 40), // random RAM usage between 0-99
     });
   }
   return result;
@@ -58,7 +60,7 @@ export function Summary({
   );
 }
 
-export default async function Dashboard() {
+export default function Dashboard() {
   // const session = await getSession();
   const d = generateHourlyData();
   return (
