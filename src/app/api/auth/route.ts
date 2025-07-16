@@ -1,6 +1,10 @@
 import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import { findKey, sessions, users } from "../data";
+import Data, { findKey, sessions } from "../data";
+
+const users = new Data<{
+  [key: string]: { username: string; password: string };
+}>("sentryx/users.json");
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,7 +16,7 @@ export async function POST(request: Request) {
     );
 
   const uuid = findKey(
-    users,
+    users.data,
     (u) => u.username == body.username && u.password == body.password
   );
 
@@ -25,7 +29,7 @@ export async function POST(request: Request) {
 
   const sessionId = "SESH-" + crypto.randomUUID();
 
-  sessions[sessionId] = uuid;
+  sessions[sessionId] = String(uuid);
 
   return NextResponse.json({ message: "ok", sessionId });
 }
