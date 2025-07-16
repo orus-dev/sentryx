@@ -1,0 +1,140 @@
+.server-container .server {
+  box-sizing: border-box;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
+.server-heading-inner {
+  display: flex;
+  gap: 10px;
+}
+
+.server-icon {
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--server-icon-bg);
+  color: rgb(37 99 235);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.server-heading-info {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.server-heading-info div div {
+  display: flex;
+  gap: 3px;
+  width: max-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-radius: 10px;
+}
+
+.server-heading-info div div svg {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.server-heading-info div div p {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 14px;
+  color: currentColor;
+}
+
+.server-heading-info div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.server-heading-info div p {
+  margin: 0;
+  font-size: 14.5px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: rgb(100 116 139);
+}
+
+.server-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.server-heading button {
+  margin: 0;
+  border: 0;
+  height: max-content;
+  width: max-content;
+  padding: 8px;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 7px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--fg);
+}
+
+.server-heading button:hover {
+  background-color: var(--bg);
+}
+
+.server-monitor h2 {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 7px;
+}
+
+.server-monitor h2 svg {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.server-monitor div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.server-monitor div p {
+  margin-bottom: 8px;
+  font-size: 14px;
+  display: flex;
+  gap: 6px;
+}
+
+.All {
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
+.Online {
+  color: var(--online);
+  background-color: var(--online-bg);
+}
+
+.Offline {
+  color: var(--offline);
+  background-color: var(--offline-bg);
+}
+
+.Warning {
+  color: var(--warning);
+  background-color: var(--warning-bg);
+}
+
+.Maintenance {
+  color: var(--maintenance);
+  background-color: var(--maintenance-bg);
+}

@@ -24,7 +24,7 @@ export default function useSession() {
           console.log(e);
           router.replace("/login");
         });
-  });
+  }, []);
 
   return session;
 }
