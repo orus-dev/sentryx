@@ -68,7 +68,7 @@ export function ChartAreaGradient({
               />
 
               <YAxis
-                domain={[0, 200]}
+                domain={[0, 100]}
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
@@ -115,7 +115,6 @@ export function ChartAreaGradient({
                 fill="url(#fillCPU)"
                 fillOpacity={0.4}
                 stroke="var(--color-cpu)"
-                stackId="a"
               />
             </AreaChart>
           </ResponsiveContainer>
