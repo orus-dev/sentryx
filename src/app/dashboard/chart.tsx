@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
@@ -10,13 +17,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
 const chartConfig = {
   cpu: {
@@ -27,9 +34,13 @@ const chartConfig = {
     label: "RAM",
     color: "var(--chart-1)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
-export function ChartAreaGradient({chartData}: {chartData: {hour: number, cpu: number, ram: number}[]}) {
+export function ChartAreaGradient({
+  chartData,
+}: {
+  chartData: { hour: number; cpu: number; ram: number }[];
+}) {
   return (
     <Card className="w-full h-96 sm:h-full">
       <CardHeader>
@@ -52,11 +63,17 @@ export function ChartAreaGradient({chartData}: {chartData: {hour: number, cpu: n
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => value+"h"}
+                tickFormatter={(value) => value + "h"}
                 height={34}
               />
 
-              <YAxis domain={[0, 200]} tickLine={false} axisLine={false} tickMargin={8} width={34} />
+              <YAxis
+                domain={[0, 200]}
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                width={34}
+              />
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
               <defs>
                 <linearGradient id="fillCPU" x1="0" y1="0" x2="0" y2="1">
@@ -105,5 +122,5 @@ export function ChartAreaGradient({chartData}: {chartData: {hour: number, cpu: n
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

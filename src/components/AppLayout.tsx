@@ -11,8 +11,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const showSidebar = !hiddenRoutes.includes(pathname);
 
-  return (
-    showSidebar ?
+  return showSidebar ? (
     <SidebarProvider>
       <div className="flex min-h-[100dvh] w-full">
         <AppSidebar />
@@ -22,10 +21,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </SidebarProvider>
-
-    :
-      <main className="min-h-[100dvh]">
-        {children}
-      </main>
+  ) : (
+    <main className="min-h-[100dvh]">{children}</main>
   );
 }

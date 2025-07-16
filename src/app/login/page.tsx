@@ -54,7 +54,11 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="h-max w-[25rem] px-8 pb-8">
-        <form ref={formRef} onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-2">
+        <form
+          ref={formRef}
+          onSubmit={(e) => e.preventDefault()}
+          className="flex flex-col gap-2"
+        >
           <h1 className="text-4xl font-bold text-center mt-5">Login</h1>
 
           <Label>Username</Label>

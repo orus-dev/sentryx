@@ -17,7 +17,6 @@ export function generateHourlyData() {
   return result;
 }
 
-
 export function SummaryCard({
   children,
   value,
@@ -36,16 +35,18 @@ export function SummaryCard({
         <Label className="text-md font-bold text-foreground">{children}</Label>
         <Label className={cn("text-2xl font-bold", className)}>{value}</Label>
       </div>
-      <Icon
-        className={cn("shrink-0", className)}
-        size={32}
-      />
+      <Icon className={cn("shrink-0", className)} size={32} />
     </Card>
   );
 }
 
-
-export function Summary({value, children}: {value: number, children: React.ReactNode}) {
+export function Summary({
+  value,
+  children,
+}: {
+  value: number;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex flex-col gap-2 w-full">
       <div className="justify-between flex">
@@ -67,7 +68,9 @@ export default async function Dashboard() {
           <span className="hidden sm:inline">Online Servers</span>
           <span className="inline sm:hidden">Online</span>
         </SummaryCard>
-        <SummaryCard className="text-chart-4" value="2" icon={TriangleAlert}>Issues</SummaryCard>
+        <SummaryCard className="text-chart-4" value="2" icon={TriangleAlert}>
+          Issues
+        </SummaryCard>
         <SummaryCard className="text-chart-2" value="52%" icon={Cpu}>
           <span className="hidden sm:inline">Avg CPU Usage</span>
           <span className="inline sm:hidden">CPU</span>
@@ -85,11 +88,13 @@ export default async function Dashboard() {
             <CardTitle>System Overview</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-6 w-full md:w-96">
-            <Summary value={20}>Average CPU Usage</Summary>
-            <Summary value={69}>Average Memory Usage</Summary>
+            <Summary value={20}>Average CPU</Summary>
+            <Summary value={69}>Average Memory</Summary>
+            <Summary value={69}>Storage</Summary>
+            <Summary value={69}>Average Network</Summary>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
