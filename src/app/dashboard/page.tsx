@@ -33,7 +33,7 @@ export function SummaryCard({
   return (
     <Card className="h-24 flex flex-row justify-between items-center gap-0 px-6">
       <div className="">
-        <Label className="text-sm font-bold text-foreground">{children}</Label>
+        <Label className="text-md font-bold text-foreground">{children}</Label>
         <Label className={cn("text-2xl font-bold", className)}>{value}</Label>
       </div>
       <Icon
