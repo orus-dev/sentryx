@@ -190,8 +190,8 @@
   --border: oklch(0.2197 0.0466 261.6537);
   --input: oklch(0.3923 0.0613 254.3914);
   --ring: oklch(0.7182 0.1105 239.7840);
-  --chart-1: oklch(0.5854 0.2041 277.1173);
-  --chart-2: oklch(0.6231 0.1880 259.8145);
+  --chart-1: oklch(55.013% 0.25888 284.728);
+  --chart-2: oklch(56.989% 0.2195 266.301);
   --chart-3: oklch(0.6271 0.1699 149.2138);
   --chart-4: oklch(0.5771 0.2152 27.3250);
   --chart-5: oklch(0.6658 0.1574 58.3183);
@@ -275,6 +275,12 @@
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
   --tracking-wider: calc(var(--tracking-normal) + 0.05em);
   --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+}
+
+html, body {
+  min-height: 100dvh;
+  height: auto;
+  overflow: unset;
 }
 
 body {
