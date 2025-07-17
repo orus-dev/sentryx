@@ -8,7 +8,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import Server from "@/types/server";
-import { Cpu, HardDrive, MemoryStick, Network, Wifi } from "lucide-react";
+import {
+  Cpu,
+  HardDrive,
+  MapPin,
+  MemoryStick,
+  Network,
+  Wifi,
+} from "lucide-react";
 
 function UsageBar({
   value,
@@ -39,9 +46,17 @@ export default function ServerComponent({ server }: { server: Server }) {
     <Card className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer">
       <CardHeader>
         <CardTitle>{server.name}</CardTitle>
-        <CardDescription>
-          {server.status[0].toUpperCase() + server.status.slice(1)} {" · "}
-          {server.ip}
+        <CardDescription className="flex justify-between">
+          <div className="flex gap-2">
+            {server.status[0].toUpperCase() + server.status.slice(1)} {" · "}
+            {server.ip}
+            {server.location && (
+              <div className="flex items-center gap-0.5">
+                <MapPin size={14} />
+                {server.location}
+              </div>
+            )}
+          </div>
         </CardDescription>
       </CardHeader>
       <CardContent className="w-full flex flex-col gap-3.5">

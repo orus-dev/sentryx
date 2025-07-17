@@ -1,4 +1,5 @@
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { dirname } from "path";
 
 export function findKey<T extends object>(
   obj: T,
@@ -12,17 +13,17 @@ export function findKey<T extends object>(
 export default class Data<T> {
   data: T;
   file_path: string;
-  constructor(file_path: string, type: "object" | "array") {
+  constructor(file_path: string, def: T) {
     this.file_path = file_path;
     if (existsSync(file_path)) {
       try {
         this.data = JSON.parse(readFileSync(file_path, "utf-8"));
       } catch {
-        this.data = (type == "object" ? {} : []) as T;
+        this.data = def;
         this.write();
       }
     } else {
-      this.data = (type == "object" ? {} : []) as T;
+      this.data = def;
       this.write();
     }
   }
@@ -32,6 +33,11 @@ export default class Data<T> {
   }
 
   public write() {
+    const dir = dirname(this.file_path);
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
+    }
+
     writeFileSync(this.file_path, JSON.stringify(this.data));
   }
 }

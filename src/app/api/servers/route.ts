@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import Data from "../data";
 import Server, { ServerAPI } from "@/types/server";
 import { HttpStatusCode } from "axios";
+import validate from "../auth/route";
 
-const servers = new Data<ServerAPI[]>("sentryx/servers.json", "array");
+const servers = new Data<ServerAPI[]>("sentryx/servers.json", []);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -44,10 +45,16 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const body = await request.json();
 
+  if (!validate(body.sessionId))
+    return NextResponse.json(
+      { message: "Invalid session" },
+      { status: HttpStatusCode.Unauthorized }
+    );
+
   if (!body.name || !body.ip)
     return NextResponse.json(
       {
-        message: "Invalid body",
+        message: "The name or IP are invalid or empty",
       },
       {
         status: HttpStatusCode.BadRequest,

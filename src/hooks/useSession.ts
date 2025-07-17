@@ -9,16 +9,13 @@ export default function useSession() {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    const id = Cookies.get("session_id");
+    const sessionId = Cookies.get("session_id");
 
-    if (id)
-      axios({
-        method: "get",
-        url: "/api/auth",
-        params: { id },
-      })
+    if (sessionId)
+      axios
+        .get("/api/auth", { params: { sessionId } })
         .then((r) => {
-          setSession(new Session(id));
+          setSession(new Session(sessionId));
         })
         .catch((e) => {
           console.log(e);

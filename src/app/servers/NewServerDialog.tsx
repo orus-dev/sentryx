@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import MapSelect from "./LocationSelect";
 import { useState } from "react";
 import Session from "@/lib/session";
+import { toast } from "sonner";
 
 export default function NewServerDialog({
   session,
@@ -24,7 +25,8 @@ export default function NewServerDialog({
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [ip, setIp] = useState("");
-  const [location, setLocation] = useState<[number, number] | undefined>(
+  const [location, setLocation] = useState<string | undefined>(undefined);
+  const [coordinates, setCoordinates] = useState<[number, number] | undefined>(
     undefined
   );
 
@@ -52,12 +54,33 @@ export default function NewServerDialog({
           onInput={(e) => setIp(e.currentTarget.value)}
         />
 
+        <Label className="mt-2">Server Location Name</Label>
+        <Input
+          placeholder="Home, Warehouse 1, 4th ave, etc"
+          onInput={(e) =>
+            setLocation(
+              e.currentTarget.value == "" ? undefined : e.currentTarget.value
+            )
+          }
+        />
+
         <Label className="mt-2">Server Location</Label>
-        <MapSelect setLocation={setLocation} />
+        <MapSelect setLocation={setCoordinates} />
         <DialogFooter>
           <Button
             onClick={() => {
-              session?.addServer({ name, ip, coordinates: location });
+              session
+                ?.addServer({ name, ip, coordinates, location })
+                .then(() => {
+                  toast.success(
+                    "Server added successfully, refresh to view it"
+                  );
+                })
+                .catch((e) => {
+                  toast.error(
+                    "Error adding server: " + e.response.data.message
+                  );
+                });
               setOpen(false);
             }}
           >

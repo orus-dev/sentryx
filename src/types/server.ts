@@ -1,6 +1,7 @@
 export interface ServerAPI {
   name: string;
   ip: string;
+  location?: string;
   coordinates?: [number, number];
 }
 

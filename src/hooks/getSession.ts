@@ -14,7 +14,7 @@ export default async function getSession(): Promise<Session | null> {
 
   try {
     await axios.get("http://localhost:3000/api/auth", {
-      params: { id: sessionId },
+      params: { sessionId },
     });
 
     return new Session(sessionId);

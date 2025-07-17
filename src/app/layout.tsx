@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppLayout from "@/components/AppLayout"; // import your wrapper
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Sentryx Control Panel",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased dark">
         <AppLayout>{children}</AppLayout>
+        <Toaster />
       </body>
     </html>
   );

@@ -13,7 +13,7 @@ export default class Session {
       return (
         ((
           await axios.get(`/api/servers?s=${query || ""}`, {
-            params: { id: this.id },
+            params: { sessionId: this.id },
           })
         ).data.servers as Server[]) || []
       );
@@ -23,12 +23,6 @@ export default class Session {
   }
 
   public async addServer(s: ServerAPI) {
-    try {
-      return (
-        ((await axios.post("/api/servers", s)).data.servers as Server[]) || []
-      );
-    } catch {
-      return [];
-    }
+    return await axios.post("/api/servers", { ...s, sessionId: this.id });
   }
 }

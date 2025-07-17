@@ -4,11 +4,11 @@ import Data, { findKey } from "../data";
 
 const users = new Data<{
   [key: string]: { username: string; password: string };
-}>("sentryx/users.json", "object");
+}>("sentryx/users.json", { admin: { username: "admin", password: "admin" } });
 
 const sessions = new Data<{ [key: string]: string }>(
   "sentryx/sessions.json",
-  "object"
+  {}
 );
 
 export async function POST(request: Request) {
@@ -44,13 +44,17 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const id = searchParams.get("id") || "";
+  const sessionId = searchParams.get("sessionId") || "";
 
-  if (!sessions.data[id])
+  if (!sessions.data[sessionId])
     return NextResponse.json(
       { message: "Invalid session" },
       { status: HttpStatusCode.Unauthorized }
     );
 
   return NextResponse.json({ message: "ok" });
+}
+
+export default function validate(sessionId: string) {
+  return sessions.data[sessionId] != undefined;
 }
