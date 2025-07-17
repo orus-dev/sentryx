@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Session from "@/lib/session";
+import { toast } from "sonner";
 
 export default function useSession() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function useSession() {
           setSession(new Session(sessionId));
         })
         .catch((e) => {
-          console.log(e);
+          toast.error(e.response.data.message);
           router.replace("/login");
         });
   }, []);
