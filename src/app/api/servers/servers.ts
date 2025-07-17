@@ -6,6 +6,7 @@ export const useServer = (server: ServerAPI, index: number) => {
   ws.onmessage = (msg) => {
     try {
       if (deletes.has(index) || !currentServers[index]) {
+        deletes.delete(index);
         ws.close();
         return;
       }

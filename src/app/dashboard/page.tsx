@@ -76,11 +76,9 @@ export default function Dashboard() {
   useEffect(() => {
     getServers();
     const interval = setInterval(() => {
-      console.log("Refreshing servers data...");
       getServers();
     }, 3000);
-
-    // Cleanup on unmount
+    
     return () => clearInterval(interval);
   }, [session]);
 

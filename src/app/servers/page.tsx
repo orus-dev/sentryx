@@ -16,12 +16,21 @@ export default function Servers() {
   const [searchedServers, setSearchedServers] = useState<Server[]>([]);
   const [serversQuery, setServersQuery] = useState("");
 
-  useEffect(() => {
+  const getServers = () => {
     if (!session) return;
 
     session.getServers().then((servers) => {
       setServers(servers);
     });
+  };
+
+  useEffect(() => {
+    getServers();
+    const interval = setInterval(() => {
+      getServers();
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [session]);
 
   useEffect(() => {

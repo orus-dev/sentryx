@@ -24,7 +24,7 @@ export default function Map({ servers }: { servers: Server[] }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const markers = useRef<maplibregl.Marker[]>([]);
-  const [sheet, setSheet] = useState<Server | undefined>();
+  const [sheet, setSheet] = useState<number | undefined>();
 
   // Initialize map only once
   useEffect(() => {
@@ -57,14 +57,14 @@ export default function Map({ servers }: { servers: Server[] }) {
     markers.current = [];
 
     // Add new markers
-    servers.forEach((server) => {
+    servers.forEach((server, i) => {
       if (server.coordinates) {
         const marker = new maplibregl.Marker({ color: "#ff3e00" })
           .setLngLat(server.coordinates)
           .addTo(map.current!);
 
         marker.getElement().addEventListener("click", () => {
-          setSheet(server);
+          setSheet(i);
         });
 
         markers.current.push(marker);
@@ -75,7 +75,7 @@ export default function Map({ servers }: { servers: Server[] }) {
   return (
     <div ref={mapContainer} className="w-full h-full">
       <Sheet open={sheet != undefined} onOpenChange={() => setSheet(undefined)}>
-        {sheet && (
+        {sheet != undefined && (
           <SheetContent>
             <SheetHeader>
               <div className="flex items-center gap-2">
@@ -83,15 +83,15 @@ export default function Map({ servers }: { servers: Server[] }) {
                   <ServerIcon className="w-4.5 h-4.5 text-current my-auto" />
                 </div>
                 <div>
-                  <SheetTitle>{sheet.name}</SheetTitle>
+                  <SheetTitle>{servers[sheet].name}</SheetTitle>
                   <SheetDescription className="flex gap-2">
-                    {sheet.status[0].toUpperCase() + sheet.status.slice(1)}{" "}
+                    {servers[sheet].status[0].toUpperCase() + servers[sheet].status.slice(1)}{" "}
                     {" · "}
-                    {sheet.ip}
-                    {sheet.location && (
+                    {servers[sheet].ip}
+                    {servers[sheet].location && (
                       <span className="flex items-center gap-0.5">
                         <MapPin size={14} />
-                        {sheet.location}
+                        {servers[sheet].location}
                       </span>
                     )}
                   </SheetDescription>
@@ -100,25 +100,25 @@ export default function Map({ servers }: { servers: Server[] }) {
             </SheetHeader>
             <div className="px-4 gap-4 flex flex-col">
               <UsageBar
-                value={sheet.cpu}
+                value={servers[sheet].cpu}
                 Icon={Cpu}
                 text="CPU"
                 color="var(--chart-2)"
               />
               <UsageBar
-                value={sheet.memory}
+                value={servers[sheet].memory}
                 Icon={MemoryStick}
                 text="Memory"
                 color="var(--chart-1)"
               />
               <UsageBar
-                value={sheet.storage}
+                value={servers[sheet].storage}
                 Icon={HardDrive}
                 text="Storage"
                 color="var(--chart-5)"
               />
               <ByteUnit
-                value={sheet.network}
+                value={servers[sheet].network}
                 Icon={Network}
                 text="Network"
                 color="var(--chart-3)"
