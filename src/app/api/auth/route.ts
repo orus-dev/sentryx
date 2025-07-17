@@ -55,6 +55,6 @@ export async function GET(request: Request) {
   return NextResponse.json({ message: "ok" });
 }
 
-export default function validate(sessionId: string) {
-  return sessions.data[sessionId] != undefined;
+export function validate(sessionId: string | null) {
+  return sessionId && sessions.data[sessionId] != undefined;
 }

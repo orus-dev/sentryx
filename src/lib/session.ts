@@ -25,4 +25,10 @@ export default class Session {
   public async addServer(s: ServerAPI) {
     return await axios.post("/api/servers", { ...s, sessionId: this.id });
   }
+
+  public async removeServer(index: number) {
+    return await axios.delete("/api/servers", {
+      params: { index, sessionId: this.id },
+    });
+  }
 }

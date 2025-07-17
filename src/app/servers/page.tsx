@@ -9,6 +9,7 @@ import Server from "@/types/server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Map from "./Map";
 import NewServerDialog from "./NewServerDialog";
+import { toast } from "sonner";
 
 export default function Servers() {
   const session = useSession();
@@ -59,7 +60,23 @@ export default function Servers() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {searchedServers.map((s, i) => (
-              <ServerComponent server={s} key={i} />
+              <ServerComponent
+                server={s}
+                key={i}
+                onDelete={() =>
+                  session
+                    ?.removeServer(i)
+                    .then(() => {
+                      toast.info("Server successfully deleted");
+                    })
+                    .catch((e) => {
+                      console.log(e.response.data.message);
+                      toast.error(
+                        `Error deleting server: ` + e.response.data.message
+                      );
+                    })
+                }
+              />
             ))}
           </div>
         </TabsContent>
