@@ -1,27 +1,12 @@
 [
   {
     "name": "Main Server",
-    "ip": "10.7.1.2"
+    "ip": "10.7.1.2",
+    "coordinates": [19.8187, 41.3275]
   },
   {
     "name": "Second Server",
-    "ip": "10.7.1.2"
-  },
-  {
-    "name": "Second Server",
-    "ip": "10.7.1.2"
-  },
-  {
-    "name": "Second Server",
-    "ip": "10.7.1.2"
-  },
-  {
-    "name": "Second Server",
-    "ip": "10.7.1.2"
-  },
-  {
-    "name": "Second Server",
-    "ip": "10.7.1.2"
+    "ip": "10.7.1.2",
+    "coordinates": [19.8187, 42]
   }
-
 ]

@@ -9,4 +9,5 @@ export default interface Server extends ServerAPI {
   memory: number;
   storage: number;
   network: number;
+  coordinates?: [number, number];
 }

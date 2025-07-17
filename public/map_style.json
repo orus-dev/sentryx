@@ -1,0 +1,71 @@
+{
+  "version": 8,
+  "name": "Clean Dark",
+  "center": [17.6543, 32.9541],
+  "zoom": 1,
+  "bearing": 0,
+  "pitch": 0,
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sources": {
+    "maplibre": {
+      "url": "https://demotiles.maplibre.org/tiles/tiles.json",
+      "type": "vector"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#0d0d0d"
+      }
+    },
+    {
+      "id": "countries-fill",
+      "type": "fill",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "paint": {
+        "fill-color": "#121212"
+      }
+    },
+    {
+      "id": "country-borders",
+      "type": "line",
+      "source": "maplibre",
+      "source-layer": "countries",
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "geolines",
+      "type": "line",
+      "source": "maplibre",
+      "source-layer": "geolines",
+      "paint": {
+        "line-color": "#222",
+        "line-dasharray": [2, 2],
+        "line-opacity": 0.4
+      }
+    },
+    {
+      "id": "labels-country",
+      "type": "symbol",
+      "source": "maplibre",
+      "source-layer": "centroids",
+      "layout": {
+        "text-field": "{NAME}",
+        "text-font": ["Open Sans Semibold"],
+        "text-size": 12,
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#cccccc",
+        "text-halo-color": "#0d0d0d",
+        "text-halo-width": 1
+      }
+    }
+  ]
+}
