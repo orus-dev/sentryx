@@ -13,59 +13,18 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import useSession from "@/hooks/useSession";
 import Server from "@/types/server";
-import { toast } from "sonner";
+import SummaryCard from "./SummaryCard";
 
-export function generateHourlyData() {
+function generateHourlyData() {
   const result = [];
   for (let hour = 24; hour >= 0; hour--) {
     result.push({
       hour: hour,
-      cpu: Math.floor(Math.random() * 20 + 30), // random CPU usage between 0-99
-      ram: Math.floor(Math.random() * 40 + 40), // random RAM usage between 0-99
+      cpu: Math.floor(Math.random() * 20 + 30),
+      ram: Math.floor(Math.random() * 40 + 40),
     });
   }
   return result;
-}
-
-export function SummaryCard({
-  children,
-  value,
-  icon,
-  className,
-}: {
-  children: React.ReactNode;
-  value: string;
-  icon: React.ElementType;
-  className?: string;
-}) {
-  const Icon = icon;
-  return (
-    <Card className="h-24 flex flex-row justify-between items-center gap-0 px-6">
-      <div className="">
-        <Label className="text-md font-bold text-foreground">{children}</Label>
-        <Label className={cn("text-2xl font-bold", className)}>{value}</Label>
-      </div>
-      <Icon className={cn("shrink-0", className)} size={32} />
-    </Card>
-  );
-}
-
-export function Summary({
-  value,
-  children,
-}: {
-  value: number;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-2 w-full">
-      <div className="justify-between flex">
-        <Label className="text-md">{children}</Label>
-        <Label className="text-md">{value}%</Label>
-      </div>
-      <Progress value={value} />
-    </div>
-  );
 }
 
 function average<T>(values: Array<T>, p: (v: T) => number) {
@@ -115,6 +74,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    getServers();
     const interval = setInterval(() => {
       console.log("Refreshing servers data...");
       getServers();

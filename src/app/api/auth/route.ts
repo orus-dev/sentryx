@@ -1,15 +1,7 @@
 import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import Data, { findKey } from "../data";
-
-const users = new Data<{
-  [key: string]: { username: string; password: string };
-}>("sentryx/users.json", { admin: { username: "admin", password: "admin" } });
-
-const sessions = new Data<{ [key: string]: string }>(
-  "sentryx/sessions.json",
-  {}
-);
+import { sessions, users } from "./auth";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -53,8 +45,4 @@ export async function GET(request: Request) {
     );
 
   return NextResponse.json({ message: "ok" });
-}
-
-export function validate(sessionId: string | null) {
-  return sessionId && sessions.data[sessionId] != undefined;
 }

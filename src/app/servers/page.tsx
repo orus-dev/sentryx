@@ -9,7 +9,6 @@ import Server from "@/types/server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Map from "./Map";
 import NewServerDialog from "./NewServerDialog";
-import { toast } from "sonner";
 
 export default function Servers() {
   const session = useSession();

@@ -1,7 +1,7 @@
 import { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import { servers } from "../servers/route";
-import { validate } from "../auth/route";
+import { servers } from "../servers/servers";
+import validate from "../auth/auth";
 
 /*
   Vision: This will be 
