@@ -1,4 +1,11 @@
-import { Calendar, Home, Inbox, Search, ServerIcon, Settings } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  ServerIcon,
+  Settings,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -39,8 +46,8 @@ const items = [
 
 export default function AppSidebar() {
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="sidebar py-4 ml-4">
+      <SidebarContent className="">
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>

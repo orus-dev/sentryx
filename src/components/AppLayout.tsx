@@ -16,8 +16,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-[100dvh] w-full">
         <AppSidebar />
         <main className="flex-1 flex flex-col min-h-0">
-          <SidebarTrigger />
-          <div className="px-4 lg:px-10 flex-1 min-h-0 mb-6">{children}</div>
+          <div className="px-4 lg:px-10 flex-1 min-h-0 mb-6 ">
+            <SidebarTrigger className="" />
+            {children}
+          </div>
         </main>
       </div>
     </SidebarProvider>
