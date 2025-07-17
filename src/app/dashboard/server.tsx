@@ -64,6 +64,43 @@ export function UsageBar({
   );
 }
 
+function formatBytes(bytes: number, decimals = 2): string {
+  if (bytes === 0) return "0 Bytes";
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  const size = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+  return `${size} ${sizes[i]}`;
+}
+
+export function ByteUnit({
+  value,
+  Icon,
+  text,
+  color,
+}: {
+  value: number;
+  Icon: React.ElementType;
+  text: string;
+  color: string;
+}) {
+  return (
+    <div className="flex flex-col gap-2 w-full">
+      <div className="justify-between flex">
+        <Label className="text-md flex justify-center">
+          <Icon size={16} color={color} /> {text}
+        </Label>
+        <Label className="text-md">{formatBytes(value)}</Label>
+      </div>
+    </div>
+  )
+}
+
 export default function ServerComponent({
   server,
   index,
@@ -127,12 +164,14 @@ export default function ServerComponent({
                 text="Storage"
                 color="var(--chart-5)"
               />
-              <UsageBar
-                value={server.network}
-                Icon={Network}
-                text="Network"
-                color="var(--chart-3)"
-              />
+              <div className="flex flex-col gap-2 w-full">
+                <div className="justify-between flex">
+                  <Label className="text-md flex justify-center">
+                    <Network size={16} color="var(--chart-3)" /> Network
+                  </Label>
+                  <Label className="text-md">{formatBytes(server.network)}</Label>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </ContextMenuTrigger>

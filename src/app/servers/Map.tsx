@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import ServerComponent, { UsageBar } from "../dashboard/server";
+import ServerComponent, { ByteUnit, UsageBar } from "../dashboard/server";
 import {
   Cpu,
   HardDrive,
@@ -117,7 +117,7 @@ export default function Map({ servers }: { servers: Server[] }) {
                 text="Storage"
                 color="var(--chart-5)"
               />
-              <UsageBar
+              <ByteUnit
                 value={sheet.network}
                 Icon={Network}
                 text="Network"

@@ -3,11 +3,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { CircleCheckBig, Cpu, MemoryStick, TriangleAlert } from "lucide-react";
+import { CircleCheckBig, Cpu, HardDrive, MemoryStick, Network, TriangleAlert } from "lucide-react";
 import { ChartAreaGradient } from "./chart";
 import { Progress } from "@/components/ui/progress";
 import getSession from "@/hooks/getSession";
-import ServerComponent from "./server";
+import ServerComponent, { ByteUnit, UsageBar } from "./server";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -90,7 +90,7 @@ export default function Dashboard() {
     network: 0,
   });
 
-  useEffect(() => {
+  const getServers = () => {
     if (!session) return;
 
     session.getServers().then((servers) => {
@@ -107,9 +107,21 @@ export default function Dashboard() {
         cpu: average(servers, (s) => s.cpu),
         memory: average(servers, (s) => s.memory),
         storage: average(servers, (s) => s.storage),
-        network: average(servers, (s) => s.network),
-      });
-    });
+        network: servers.reduce((sum, s) => sum + s.network, 0),
+      });``
+    }).catch((e) => {
+      console.error("Error fetching servers:", e);
+    })
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Refreshing servers data...");
+      getServers();
+    }, 3000);
+
+    // Cleanup on unmount
+    return () => clearInterval(interval);
   }, [session]);
 
   useEffect(() => {
@@ -171,11 +183,31 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle>System Overview</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col gap-6 w-full md:w-96">
-            <Summary value={serverData.cpu}>Average CPU</Summary>
-            <Summary value={serverData.memory}>Average Memory</Summary>
-            <Summary value={serverData.storage}>Storage</Summary>
-            <Summary value={serverData.network}>Average Network</Summary>
+          <CardContent className="flex flex-col gap-4 w-full md:w-96">
+            <UsageBar
+              value={serverData.cpu}
+              Icon={Cpu}
+              text="CPU"
+              color="var(--chart-2)"
+            />
+            <UsageBar
+              value={serverData.memory}
+              Icon={MemoryStick}
+              text="Memory"
+              color="var(--chart-1)"
+            />
+            <UsageBar
+              value={serverData.storage}
+              Icon={HardDrive}
+              text="Storage"
+              color="var(--chart-5)"
+            />
+            <ByteUnit
+              value={serverData.network}
+              Icon={Network}
+              text="Network"
+              color="var(--chart-3)"
+            />
           </CardContent>
         </Card>
       </div>
