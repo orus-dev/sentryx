@@ -42,15 +42,21 @@ export default function NewServerDialog({
         <DialogHeader>
           <DialogTitle>Add Server</DialogTitle>
         </DialogHeader>
-        <Label className="mt-2">Server Name</Label>
+        <Label className="mt-2">
+          Server Name<span className="text-red-500">*</span>
+        </Label>
         <Input
           placeholder="Main Server, Database, etc"
+          required
           onInput={(e) => setName(e.currentTarget.value)}
         />
 
-        <Label className="mt-2">Server IP</Label>
+        <Label className="mt-2">
+          Server IP<span className="text-red-500">*</span>
+        </Label>
         <Input
           placeholder="10.7.1.10, etc"
+          required
           onInput={(e) => setIp(e.currentTarget.value)}
         />
 
@@ -68,6 +74,7 @@ export default function NewServerDialog({
         <MapSelect setLocation={setCoordinates} />
         <DialogFooter>
           <Button
+            disabled={name == "" || ip == ""}
             onClick={() => {
               session
                 ?.addServer({ name, ip, coordinates, location })

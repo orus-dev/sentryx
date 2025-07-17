@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 export default function MapSelect({
   setLocation,
 }: {
-  setLocation: (coors: [number, number]) => void;
+  setLocation: (coords: [number, number] | undefined) => void;
 }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -37,6 +37,14 @@ export default function MapSelect({
       marker.current = new maplibregl.Marker({ color: "#ff3e00" })
         .setLngLat(lngLat)
         .addTo(map.current!);
+    });
+
+    map.current.on("contextmenu", () => {
+      if (marker.current) {
+        marker.current.remove();
+        marker.current = null;
+        setLocation(undefined);
+      }
     });
 
     return () => {
