@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-function UsageBar({
+export function UsageBar({
   value,
   Icon,
   text,

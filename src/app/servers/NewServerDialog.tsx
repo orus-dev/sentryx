@@ -38,7 +38,7 @@ export default function NewServerDialog({
       >
         <Plus className="m-0 p-0" /> New
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Server</DialogTitle>
         </DialogHeader>
@@ -73,6 +73,9 @@ export default function NewServerDialog({
         <Label className="mt-2">Server Location</Label>
         <MapSelect setLocation={setCoordinates} />
         <DialogFooter>
+          <Button variant="secondary" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           <Button
             disabled={name == "" || ip == ""}
             onClick={() => {

@@ -65,6 +65,7 @@ export async function POST(request: Request) {
     name: body.name,
     ip: body.ip,
     coordinates: body.coordinates,
+    location: body.location,
   });
 
   servers.write();
