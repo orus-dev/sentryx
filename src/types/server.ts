@@ -1,6 +1,7 @@
 export interface ServerAPI {
   name: string;
   ip: string;
+  coordinates?: [number, number];
 }
 
 export default interface Server extends ServerAPI {
@@ -9,5 +10,4 @@ export default interface Server extends ServerAPI {
   memory: number;
   storage: number;
   network: number;
-  coordinates?: [number, number];
 }

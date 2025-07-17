@@ -1,12 +1,1 @@
-[
-  {
-    "name": "Main Server",
-    "ip": "10.7.1.2",
-    "coordinates": [19.8187, 41.3275]
-  },
-  {
-    "name": "Second Server",
-    "ip": "10.7.1.2",
-    "coordinates": [19.8187, 42]
-  }
-]
+[{"name":"Main Server","ip":"10.7.1.2","coordinates":[19.8187,41.3275]},{"name":"Second Server","ip":"10.7.1.2","coordinates":[19.8187,42]},{"name":"test","ip":"abc","coordinates":[14.212747852350674,13.997221304482736]},{"name":"Bro","ip":"10.7.1.53","coordinates":[19.66455594156352,40.826754398461304]},{"name":"Idk lol","ip":"10.32.2.4","coordinates":[20.135507417925936,41.17975477202245]}]

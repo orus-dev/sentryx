@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Data from "../data";
 import Server, { ServerAPI } from "@/types/server";
+import { HttpStatusCode } from "axios";
 
 const servers = new Data<ServerAPI[]>("sentryx/servers.json", "array");
 
@@ -37,5 +38,31 @@ export async function GET(request: Request) {
   return NextResponse.json({
     message: "ok",
     servers: currentServers,
+  });
+}
+
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  if (!body.name || !body.ip)
+    return NextResponse.json(
+      {
+        message: "Invalid body",
+      },
+      {
+        status: HttpStatusCode.BadRequest,
+      }
+    );
+
+  servers.data.push({
+    name: body.name,
+    ip: body.ip,
+    coordinates: body.coordinates,
+  });
+
+  servers.write();
+
+  return NextResponse.json({
+    message: "ok",
   });
 }

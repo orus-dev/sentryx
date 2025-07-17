@@ -1,19 +1,14 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { CircleCheckBig, Cpu, MemoryStick, TriangleAlert } from "lucide-react";
-import { ChartAreaGradient } from "../dashboard/chart";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent } from "@/components/ui/card";
 import ServerComponent from "../dashboard/server";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import useSession from "@/hooks/useSession";
 import Server from "@/types/server";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Map from "./Map";
+import NewServerDialog from "./NewServerDialog";
 
 export default function Servers() {
   const session = useSession();
@@ -45,20 +40,20 @@ export default function Servers() {
   }, [serversQuery, servers]);
 
   return (
-    <div className="w-full">
-      <Tabs defaultValue="grid">
+    <div className="w-full h-full">
+      <Tabs defaultValue="grid" className="h-full">
         <TabsList className="mx-auto mb-5">
           <TabsTrigger value="grid">Grid</TabsTrigger>
           <TabsTrigger value="map">Map</TabsTrigger>
         </TabsList>
-        <TabsContent value="grid" className="flex flex-col gap-5">
+        <TabsContent value="grid" className="flex flex-col gap-5 h-full">
           <Card>
             <CardContent className="flex flex-row gap-3">
               <Input
                 onInput={(e) => setServersQuery(e.currentTarget.value)}
                 placeholder="Search servers by name, location or IP..."
               />
-              <Button onClick={() => {}}>Search</Button>
+              <NewServerDialog session={session} />
             </CardContent>
           </Card>
 

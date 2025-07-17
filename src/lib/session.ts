@@ -1,4 +1,4 @@
-import Server from "@/types/server";
+import Server, { ServerAPI } from "@/types/server";
 import axios from "axios";
 
 export default class Session {
@@ -16,6 +16,16 @@ export default class Session {
             params: { id: this.id },
           })
         ).data.servers as Server[]) || []
+      );
+    } catch {
+      return [];
+    }
+  }
+
+  public async addServer(s: ServerAPI) {
+    try {
+      return (
+        ((await axios.post("/api/servers", s)).data.servers as Server[]) || []
       );
     } catch {
       return [];

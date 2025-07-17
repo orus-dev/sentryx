@@ -56,5 +56,5 @@ export default function Map({ servers }: { servers: Server[] }) {
     });
   }, [servers]);
 
-  return <div ref={mapContainer} style={{ width: "100%", height: "600px" }} />;
+  return <div ref={mapContainer} className="w-full h-full" />;
 }
