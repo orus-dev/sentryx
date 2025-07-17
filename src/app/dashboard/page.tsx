@@ -192,23 +192,7 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {searchedServers.map((s, i) => (
-          <ServerComponent
-            server={s}
-            key={i}
-            onDelete={() =>
-              session
-                ?.removeServer(i)
-                .then(() => {
-                  toast.info("Server successfully deleted");
-                })
-                .catch((e) => {
-                  console.log(e.response.data.message);
-                  toast.error(
-                    `Error deleting server: ` + e.response.data.message
-                  );
-                })
-            }
-          />
+          <ServerComponent server={s} key={i} index={i} session={session} />
         ))}
       </div>
     </div>

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/context-menu";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import Session from "@/lib/session";
 import Server from "@/types/server";
 import {
   Cpu,
@@ -35,7 +36,9 @@ import {
   Trash,
   Wifi,
 } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function UsageBar({
   value,
@@ -63,10 +66,12 @@ export function UsageBar({
 
 export default function ServerComponent({
   server,
-  onDelete,
+  index,
+  session,
 }: {
   server: Server;
-  onDelete: () => void;
+  index: number;
+  session: Session | null;
 }) {
   const [deleteAlert, setDeleteAlert] = useState(false);
 
@@ -74,7 +79,12 @@ export default function ServerComponent({
     <>
       <ContextMenu>
         <ContextMenuTrigger>
-          <Card className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none">
+          <Card
+            className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none"
+            onClick={() => {
+              redirect(`/servers/${index}`);
+            }}
+          >
             <CardHeader>
               <div className="flex items-center gap-2">
                 <div className="bg-muted text-muted-foreground p-1.5 rounded-md">
@@ -154,7 +164,18 @@ export default function ServerComponent({
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="text-destructive-foreground bg-destructive"
-              onClick={onDelete}
+              onClick={() =>
+                session
+                  ?.removeServer(index)
+                  .then(() => {
+                    toast.info("Server successfully deleted");
+                  })
+                  .catch((e) => {
+                    toast.error(
+                      `Error deleting server: ` + e.response.data.message
+                    );
+                  })
+              }
             >
               Delete
             </AlertDialogAction>

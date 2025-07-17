@@ -31,4 +31,10 @@ export default class Session {
       params: { index, sessionId: this.id },
     });
   }
+
+  public async getServerIndex(index: number) {
+    return await axios.get("/api/server", {
+      params: { index, sessionId: this.id },
+    });
+  }
 }

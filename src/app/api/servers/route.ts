@@ -4,11 +4,19 @@ import Server, { ServerAPI } from "@/types/server";
 import { HttpStatusCode } from "axios";
 import { validate } from "../auth/route";
 
-const servers = new Data<ServerAPI[]>("sentryx/servers.json", []);
+export const servers = new Data<ServerAPI[]>("sentryx/servers.json", []);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("s");
+  const sessionId = searchParams.get("sessionId");
+
+  if (!validate(sessionId))
+    return NextResponse.json(
+      { message: "Invalid session" },
+      { status: HttpStatusCode.Unauthorized }
+    );
+
   const currentServers = servers.data.map(
     (s) =>
       ({
