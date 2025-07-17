@@ -22,6 +22,10 @@ export default function useSession() {
           toast.error(e.response.data.message);
           router.replace("/login");
         });
+    else {
+      toast.error("Invalid session");
+      router.replace("/login");
+    }
   }, []);
 
   return session;

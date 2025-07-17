@@ -11,7 +11,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ServerComponent, { UsageBar } from "../dashboard/server";
-import { Cpu, HardDrive, MapPin, MemoryStick, Network } from "lucide-react";
+import {
+  Cpu,
+  HardDrive,
+  MapPin,
+  MemoryStick,
+  Network,
+  ServerIcon,
+} from "lucide-react";
 
 export default function Map({ servers }: { servers: Server[] }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -71,17 +78,25 @@ export default function Map({ servers }: { servers: Server[] }) {
         {sheet && (
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>{sheet.name}</SheetTitle>
-              <SheetDescription className="flex gap-2">
-                {sheet.status[0].toUpperCase() + sheet.status.slice(1)} {" · "}
-                {sheet.ip}
-                {sheet.location && (
-                  <span className="flex items-center gap-0.5">
-                    <MapPin size={14} />
-                    {sheet.location}
-                  </span>
-                )}
-              </SheetDescription>
+              <div className="flex items-center gap-2">
+                <div className="bg-muted text-muted-foreground p-1.5 rounded-md">
+                  <ServerIcon className="w-4.5 h-4.5 text-current my-auto" />
+                </div>
+                <div>
+                  <SheetTitle>{sheet.name}</SheetTitle>
+                  <SheetDescription className="flex gap-2">
+                    {sheet.status[0].toUpperCase() + sheet.status.slice(1)}{" "}
+                    {" · "}
+                    {sheet.ip}
+                    {sheet.location && (
+                      <span className="flex items-center gap-0.5">
+                        <MapPin size={14} />
+                        {sheet.location}
+                      </span>
+                    )}
+                  </SheetDescription>
+                </div>
+              </div>
             </SheetHeader>
             <div className="px-4 gap-4 flex flex-col">
               <UsageBar

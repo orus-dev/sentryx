@@ -31,6 +31,7 @@ import {
   MemoryStick,
   Network,
   Pencil,
+  ServerIcon,
   Trash,
   Wifi,
 } from "lucide-react";
@@ -73,22 +74,29 @@ export default function ServerComponent({
     <>
       <ContextMenu>
         <ContextMenuTrigger>
-          <Card className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer">
+          <Card className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none">
             <CardHeader>
-              <CardTitle>{server.name}</CardTitle>
-              <CardDescription className="flex justify-between">
-                <div className="flex gap-2">
-                  {server.status[0].toUpperCase() + server.status.slice(1)}{" "}
-                  {" · "}
-                  {server.ip}
-                  {server.location && (
-                    <div className="flex items-center gap-0.5">
-                      <MapPin size={14} />
-                      {server.location}
-                    </div>
-                  )}
+              <div className="flex items-center gap-2">
+                <div className="bg-muted text-muted-foreground p-1.5 rounded-md">
+                  <ServerIcon className="w-4.5 h-4.5 text-current my-auto" />
                 </div>
-              </CardDescription>
+                <div>
+                  <CardTitle>{server.name}</CardTitle>
+                  <CardDescription className="flex justify-between">
+                    <div className="flex gap-2 items-center flex-wrap">
+                      {server.status[0].toUpperCase() + server.status.slice(1)}
+                      {" · "}
+                      {server.ip}
+                      {server.location && (
+                        <div className="flex items-center gap-1">
+                          <MapPin size={14} />
+                          {server.location}
+                        </div>
+                      )}
+                    </div>
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="w-full flex flex-col gap-3.5">
               <UsageBar
