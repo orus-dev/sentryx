@@ -46,7 +46,7 @@ export function ChartAreaGradient({
       <CardHeader>
         <CardTitle>CPU & RAM Usage</CardTitle>
         <CardDescription>
-          Showing the average CPU and RAM usage over the last 24 hours.
+          Showing the average CPU and RAM peaks per 6 minutes of 1 hour.
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 flex-1 overflow-hidden">
@@ -63,7 +63,7 @@ export function ChartAreaGradient({
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tickFormatter={(value) => value + "h"}
+                tickFormatter={(value) => value + "m"}
                 height={34}
               />
 

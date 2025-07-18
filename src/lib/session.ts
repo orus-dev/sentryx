@@ -37,4 +37,10 @@ export default class Session {
       params: { index, sessionId: this.id },
     });
   }
+
+  public async getServerUsageData() {
+    return await axios.get("/api/server-usage", {
+      params: { sessionId: this.id },
+    });
+  }
 }

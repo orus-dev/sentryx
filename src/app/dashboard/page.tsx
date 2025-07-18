@@ -33,7 +33,7 @@ function average<T>(values: Array<T>, p: (v: T) => number) {
     : 0;
 }
 
-const d = generateHourlyData();
+// const d = generateHourlyData();
 
 export default function Dashboard() {
   const session = useSession();
@@ -48,6 +48,20 @@ export default function Dashboard() {
     storage: 0,
     network: 0,
   });
+  const [usageData, setUsageData] = useState(new Array(24).fill(0));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!session) return;
+      session.getServerUsageData().then((data) => {
+        setUsageData(data.data.data);
+      }).catch((e) => {
+        console.error("Error fetching server usage:", e);
+      });
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, [session]);
 
   const getServers = () => {
     if (!session) return;
@@ -135,7 +149,7 @@ export default function Dashboard() {
 
       <div className="w-full flex gap-5 flex-col md:flex-row">
         <div className="h-96 w-full">
-          <ChartAreaGradient chartData={d} />
+          <ChartAreaGradient chartData={usageData} />
         </div>
         <Card className="h-96">
           <CardHeader>
