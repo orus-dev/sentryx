@@ -1,18 +1,15 @@
 import Server, { ServerAPI } from "@/types/server";
 import Data from "../data";
+import axios from "axios";
 
 export const useServer = (server: ServerAPI, index: number) => {
-  const ws = new WebSocket(`ws://${server.ip}:5273`);
-  ws.onmessage = (msg) => {
-    try {
-      if (deletes.has(index) || !currentServers[index]) {
-        deletes.delete(index);
-        ws.close();
-        return;
-      }
-      if (msg.data === "Success") {return}
-      const data = JSON.parse(msg.data);
-      
+  const interval = setInterval(() => {
+    if (deletes.has(index) || !currentServers[index]) {
+      deletes.delete(index);
+      interval.close();
+      return;
+    }
+    axios.get(`http://${server.ip}:8080/`, {params: {auth: 'my-key'}}).then(({data}) => {
       if (data.status) {
         currentServers[index].status = data.status;
       }
@@ -28,11 +25,10 @@ export const useServer = (server: ServerAPI, index: number) => {
       if (data.network) {
         currentServers[index].network = data.network;
       }
-    } catch (e) {
-      console.error("Error parsing WebSocket message:", e);
-    }
-  };
-  ws.onopen = () => ws.send("my-key");
+    }).catch((e) => {
+      console.error(e.data);
+    })
+  }, 2000);
 };
 
 export const deletes = new Set<number>();
