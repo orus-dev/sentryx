@@ -303,3 +303,11 @@ body {
 .sidebar div {
   border-radius: 14px !important;
 }
+
+.online {
+  color: var(--chart-3) !important;
+}
+
+.offline {
+  color: var(--chart-4) !important;
+}

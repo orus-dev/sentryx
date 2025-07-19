@@ -1,7 +1,10 @@
 import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import { servers } from "../servers/servers";
+import { PORT, servers } from "../servers/servers";
 import validate from "../auth/auth";
+import Service from "@/types/service";
+
+const allServices: { [key: string]: Service[] } = {};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -26,10 +29,12 @@ export async function GET(request: Request) {
 
   const server = servers.data[parseInt(index)];
 
-  const apps = await axios.get(`http://${server.ip}:8080/apps`, {params: {auth: 'my-key'}});
+  axios.get(`http://${server.ip}:${PORT}/apps`, {params: {auth: 'my-key'}}).then((apps) => {
+    allServices[parseInt(index)] = apps.data;
+  });
 
   return NextResponse.json({
     message: "ok",
-    apps: apps.data,
+    apps: allServices[parseInt(index)] || [],
   });
 }

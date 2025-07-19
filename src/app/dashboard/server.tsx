@@ -24,6 +24,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import Session from "@/lib/session";
+import { cn } from "@/lib/utils";
 import Server from "@/types/server";
 import {
   Cpu,
@@ -130,12 +131,12 @@ export default function ServerComponent({
                 <div>
                   <CardTitle>{server.name}</CardTitle>
                   <CardDescription className="flex justify-between">
-                    <div className="flex gap-2 items-center flex-wrap">
-                      {server.status[0].toUpperCase() + server.status.slice(1)}
+                    <div className="flex items-center flex-wrap">
+                      <div className={cn("mr-1", server.status)}>{server.status[0].toUpperCase() + server.status.slice(1)}</div>
                       {" · "}
                       {server.ip}
                       {server.location && (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 ml-2">
                           <MapPin size={14} />
                           {server.location}
                         </div>

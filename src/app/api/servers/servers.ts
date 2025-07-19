@@ -2,6 +2,8 @@ import Server, { ServerAPI } from "@/types/server";
 import Data from "../data";
 import axios from "axios";
 
+export const PORT = 63774;
+
 export const useServer = (server: ServerAPI, index: number) => {
   const interval = setInterval(() => {
     if (deletes.has(index) || !currentServers[index]) {
@@ -9,7 +11,7 @@ export const useServer = (server: ServerAPI, index: number) => {
       interval.close();
       return;
     }
-    axios.get(`http://${server.ip}:8080/`, {params: {auth: 'my-key'}}).then(({data}) => {
+    axios.get(`http://${server.ip}:${PORT}/`, {params: {auth: 'my-key'}}).then(({data}) => {
       if (data.status) {
         currentServers[index].status = data.status;
       }
@@ -25,7 +27,9 @@ export const useServer = (server: ServerAPI, index: number) => {
       if (data.network) {
         currentServers[index].network = data.network;
       }
+      currentServers[index].status = 'online';
     }).catch((e) => {
+      currentServers[index].status = 'offline';
       console.error(e.data);
     })
   }, 2000);
