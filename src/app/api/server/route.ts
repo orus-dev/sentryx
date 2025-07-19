@@ -1,12 +1,9 @@
-import { HttpStatusCode } from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
 import { servers } from "../servers/servers";
 import validate from "../auth/auth";
 
-/*
-  Vision: This will be 
-*/
-export function GET(request: Request) {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
   if (!validate(searchParams.get("sessionId")))
@@ -17,7 +14,7 @@ export function GET(request: Request) {
 
   const index = searchParams.get("index");
 
-  if (!index)
+  if (!index || !servers.data[parseInt(index)])
     return NextResponse.json(
       {
         message: "The index is invalid",
@@ -27,7 +24,12 @@ export function GET(request: Request) {
       }
     );
 
+  const server = servers.data[parseInt(index)];
+
+  const apps = await axios.get(`http://${server.ip}:8080/apps`, {params: {auth: 'my-key'}});
+
   return NextResponse.json({
     message: "ok",
+    apps: apps.data,
   });
 }
