@@ -30,7 +30,6 @@ export const useServer = (server: ServerAPI, index: number) => {
       currentServers[index].status = 'online';
     }).catch((e) => {
       currentServers[index].status = 'offline';
-      console.error(e.data);
     })
   }, 2000);
 };

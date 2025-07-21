@@ -311,3 +311,11 @@ body {
 .offline {
   color: var(--chart-4) !important;
 }
+
+.running {
+  color: var(--chart-3) !important;
+}
+
+.exited {
+  color: var(--chart-4) !important;
+}

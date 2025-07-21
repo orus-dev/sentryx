@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { NextResponse } from "next/server";
-import { PORT, servers } from "../servers/servers";
+import { currentServers, PORT, servers } from "../servers/servers";
 import validate from "../auth/auth";
 import Service from "@/types/service";
 
@@ -27,14 +27,15 @@ export async function GET(request: Request) {
       }
     );
 
-  const server = servers.data[parseInt(index)];
+  const server = currentServers[parseInt(index)];
 
   axios.get(`http://${server.ip}:${PORT}/apps`, {params: {auth: 'my-key'}}).then((apps) => {
     allServices[parseInt(index)] = apps.data;
   });
 
   return NextResponse.json({
+    ...server,
     message: "ok",
-    apps: allServices[parseInt(index)] || [],
+    services: allServices[parseInt(index)] || [],
   });
 }

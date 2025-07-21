@@ -106,20 +106,23 @@ export default function ServerComponent({
   server,
   index,
   session,
+  nonInteractive,
 }: {
   server: Server;
   index: number;
   session: Session | null;
+  nonInteractive?: boolean;
 }) {
   const [deleteAlert, setDeleteAlert] = useState(false);
 
   return (
     <>
       <ContextMenu>
-        <ContextMenuTrigger>
+        <ContextMenuTrigger disabled={nonInteractive}>
           <Card
-            className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none"
+            className={cn("w-full transition-transform duration-500 !select-none", nonInteractive ? "" : "hover:scale-102 hover:cursor-pointer")}
             onClick={() => {
+              if (nonInteractive) return;
               redirect(`/servers/${index}`);
             }}
           >
@@ -183,7 +186,7 @@ export default function ServerComponent({
           </ContextMenuItem>
           <ContextMenuItem
             className="text-destructive"
-            onClick={() => setDeleteAlert(true)}
+            onClick={() => {if (nonInteractive) return;setDeleteAlert(true)}}
           >
             <Trash className="text-current" />
             Delete
@@ -204,7 +207,8 @@ export default function ServerComponent({
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="text-destructive-foreground bg-destructive"
-              onClick={() =>
+              onClick={() => {
+                if (nonInteractive) return;
                 session
                   ?.removeServer(index)
                   .then(() => {
@@ -215,7 +219,7 @@ export default function ServerComponent({
                       `Error deleting server: ` + e.response.data.message
                     );
                   })
-              }
+              }}
             >
               Delete
             </AlertDialogAction>

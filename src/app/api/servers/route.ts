@@ -20,8 +20,6 @@ export async function GET(request: Request) {
   if (query) {
     let tokens = (query || "").toLocaleLowerCase().split(" ");
 
-    console.log(tokens);
-
     return NextResponse.json({
       message: "ok",
       servers: currentServers.filter((s) =>
@@ -62,6 +60,7 @@ export async function POST(request: Request) {
     ip: body.ip,
     coordinates: body.coordinates,
     location: body.location,
+    apps: body.apps,
   });
 
   currentServers.push({
@@ -69,6 +68,7 @@ export async function POST(request: Request) {
     ip: body.ip,
     coordinates: body.coordinates,
     location: body.location,
+    apps: body.apps,
     status: "offline",
     cpu: 0,
     memory: 0,
@@ -81,6 +81,7 @@ export async function POST(request: Request) {
     ip: body.ip,
     coordinates: body.coordinates,
     location: body.location,
+    apps: body.apps,
   }, servers.data.length - 1);
 
   servers.write();

@@ -19,7 +19,7 @@ export default function useSession() {
           setSession(new Session(sessionId));
         })
         .catch((e) => {
-          toast.error(e.response.data.message);
+          toast.error(e.response?.data.message || "Unknown error occurred: "+e);
           router.replace("/login");
         });
     else {

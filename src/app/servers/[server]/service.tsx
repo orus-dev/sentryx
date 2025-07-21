@@ -101,7 +101,8 @@ export default function ServiceComponent({
             <CardTitle>{service.name}</CardTitle>
 
             {(service.description && <CardDescription className="flex justify-between">
-              {service.description} {(service as any).cpu}
+              <div><p className={service.active_state}>{service.active_state[0].toUpperCase() + service.active_state.slice(1)}</p> {service.description}</div>
+              {(service as any).cpu}
             </CardDescription>)}
           </div>
         </div>
