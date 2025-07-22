@@ -131,7 +131,7 @@ export default function Dashboard() {
         </SummaryCard>
         <SummaryCard
           className="text-chart-2"
-          value={`${serverData.cpu}%`}
+          value={`${serverData.cpu.toFixed(0)}%`}
           icon={Cpu}
         >
           <span className="hidden sm:inline">Avg CPU Usage</span>
@@ -139,7 +139,7 @@ export default function Dashboard() {
         </SummaryCard>
         <SummaryCard
           className="text-chart-1"
-          value={`${serverData.memory}%`}
+          value={`${serverData.memory.toFixed(0)}%`}
           icon={MemoryStick}
         >
           <span className="hidden sm:inline">Avg Memory Usage</span>
