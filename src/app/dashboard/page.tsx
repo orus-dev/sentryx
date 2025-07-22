@@ -131,7 +131,7 @@ export default function Dashboard() {
         </SummaryCard>
         <SummaryCard
           className="text-chart-2"
-          value={`${serverData.cpu.toFixed(0)}%`}
+          value={`${Math.floor(serverData.cpu)}%`}
           icon={Cpu}
         >
           <span className="hidden sm:inline">Avg CPU Usage</span>
@@ -139,7 +139,7 @@ export default function Dashboard() {
         </SummaryCard>
         <SummaryCard
           className="text-chart-1"
-          value={`${serverData.memory.toFixed(0)}%`}
+          value={`${Math.floor(serverData.memory)}%`}
           icon={MemoryStick}
         >
           <span className="hidden sm:inline">Avg Memory Usage</span>
@@ -157,13 +157,13 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="flex flex-col gap-4 w-full md:w-96">
             <UsageBar
-              value={serverData.cpu}
+              value={Math.floor(serverData.cpu)}
               Icon={Cpu}
               text="CPU"
               color="var(--chart-2)"
             />
             <UsageBar
-              value={serverData.memory}
+              value={Math.floor(serverData.memory)}
               Icon={MemoryStick}
               text="Memory"
               color="var(--chart-1)"
