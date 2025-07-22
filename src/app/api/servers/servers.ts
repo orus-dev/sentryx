@@ -48,4 +48,4 @@ export var currentServers: Server[] = servers.data.map(
     } as Server)
 );
 
-servers.data.map(useServer);
+servers.data.forEach(useServer);
