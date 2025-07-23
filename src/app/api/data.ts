@@ -38,6 +38,6 @@ export default class Data<T> {
       mkdirSync(dir, { recursive: true });
     }
 
-    writeFileSync(this.file_path, JSON.stringify(this.data));
+    writeFileSync(this.file_path, JSON.stringify(this.data, undefined, 4));
   }
 }
