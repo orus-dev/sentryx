@@ -17,13 +17,13 @@ export default function ServerPage(params: { server: string }) {
   const [server, setServer] = useState<Server2 | undefined>();
 
   useEffect(() => {
-    session?.getServerIndex(0).then((s) => {
+    session?.getServerIndex(index).then((s) => {
       setServer(s.data);
-      setTimeout(() => {
-        session?.getServerIndex(0).then((s) => {
+      setInterval(() => {
+        session?.getServerIndex(index).then((s) => {
           setServer(s.data);
         });
-    }, 1000);
+      }, 1000);
     });
   }, [session]);
 
