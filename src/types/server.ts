@@ -5,7 +5,7 @@ export interface ServerAPI {
   ip: string;
   location?: string;
   coordinates?: [number, number];
-  apps: AppService[];
+  apps?: AppService[];
 }
 
 export default interface Server extends ServerAPI {

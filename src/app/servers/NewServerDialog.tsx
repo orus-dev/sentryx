@@ -80,7 +80,7 @@ export default function NewServerDialog({
             disabled={name == "" || ip == ""}
             onClick={() => {
               session
-                ?.addServer({ name, ip, coordinates, location })
+                ?.addServer({ name, ip, coordinates, location, })
                 .then(() => {
                   toast.success(
                     "Server added successfully, refresh to view it"
