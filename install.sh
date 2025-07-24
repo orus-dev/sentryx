@@ -16,8 +16,6 @@ SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 NODE_BIN="$(which node)"
 RUN_USER="$(whoami)"  # change if needed
 
-exit 0
-
 # Backup if exists
 if [ -d "$INSTALL_DIR" ]; then
     echo "Sentryx already exists, backing up..."
