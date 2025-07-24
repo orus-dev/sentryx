@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+# Check for required commands
+for cmd in node npm git sudo; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "Error: Required command '$cmd' is not installed or not in PATH. For more info: https://github.com/orus-dev/sentryx/wiki/Common-errors" >&2
+        exit 1
+    fi
+done
+
 REPO_URL="https://github.com/orus-dev/sentryx.git"
 INSTALL_DIR="$HOME/sentryx"  # expanded
 SERVICE_NAME="sentryx"
@@ -8,13 +16,7 @@ SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 NODE_BIN="$(which node)"
 RUN_USER="$(whoami)"  # change if needed
 
-# Check for required commands
-for cmd in node npm git sudo; do
-    if ! command -v "$cmd" &> /dev/null; then
-        echo "Error: Required command '$cmd' is not installed or not in PATH. For more info: https://github.com/orus-dev/sentryx/wiki/Common-errors" >&2
-        exit 1
-    fi
-done
+exit 0
 
 # Backup if exists
 if [ -d "$INSTALL_DIR" ]; then
