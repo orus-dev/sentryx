@@ -40,8 +40,11 @@
 
 ## 📚 Table of Contents
 
+- [📚 Table of Contents](#-table-of-contents)
 - [About The Project](#about-the-project)
   - [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Uninstalling](#uninstalling)
 
 ---
 
@@ -59,7 +62,18 @@
 
 ## Getting Started
 
-Not yet :/
+```bash
+wget -qO- https://raw.githubusercontent.com/orus-dev/sentryx/refs/heads/master/install.sh | bash
+```
+
+## Uninstalling
+```bash
+sh $HOME/sentryx-server/uninstall.sh
+```
+If that fails
+```bash
+wget -qO- https://raw.githubusercontent.com/orus-dev/sentryx/refs/heads/master/uninstall.sh | bash
+```
 
 [contributors-shield]: https://img.shields.io/github/contributors/orus-dev/sentryx.svg?style=flat-square&color=blue&label=contributors
 [contributors-url]: https://github.com/orus-dev/sentryx/graphs/contributors
