@@ -9,7 +9,7 @@ function average<T>(values: Array<T>, p: (v: T) => number) {
     : 0;
 }
 
-const usageData = Array.from({length: 60}).map((_, i) => ({ hour: i, cpu: 0, ram: 0 }));
+const usageData = new Array(60).fill({cpu: 0, ram: 0});
 var i = 0;
 
 setInterval(() => {
@@ -28,7 +28,7 @@ setInterval(() => {
     };
     i++;
   }
-}, 60000);
+}, 1000);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
     const maxRam = Math.max(...slice.map((entry) => entry.ram));
 
     peakData.push({
-      hour: slice[0].hour,
+      hour: i,
       cpu: maxCpu,
       ram: maxRam
     });
