@@ -87,7 +87,7 @@ export default function AppComponent({
 
   return (
     <Card
-      className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none border-accent border-2"
+      className="w-full transition-transform duration-500 hover:scale-102 hover:cursor-pointer !select-none border-secondary border-2"
       onClick={() => {
         redirect(`/servers/${index}`);
       }}

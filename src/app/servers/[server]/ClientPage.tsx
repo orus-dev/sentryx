@@ -10,6 +10,8 @@ import AppComponent from "./AppComponent";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import AddAppDialog from "./AddAppDialog";
+import InstallAppDialog from "./IntallAppDialog";
 
 interface Server2 extends Server {
   services: Service[],
@@ -40,12 +42,13 @@ export default function ClientPage({ serverId }: { serverId: string }) {
       <Card>
         <CardHeader className="flex">
           <div>
-            <CardTitle>Sentryx Apps</CardTitle>
+            <CardTitle>Sentryx Applications</CardTitle>
             <CardDescription>Your Sentryx apps on this server</CardDescription>
           </div>
-          <Button className="ml-auto" onClick={() => {
-            toast.warning("Functionality not added yet");
-          }}>Add</Button>
+          <div className="ml-auto w-max flex gap-3">
+            <InstallAppDialog session={session} />
+            <AddAppDialog session={session} />
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
